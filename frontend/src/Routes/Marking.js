@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+
+import Papa from "papaparse";
 import axios from "axios";
 
 export default function Marking() {
@@ -7,37 +9,61 @@ export default function Marking() {
 
     const onRubricFileChange = event => {
         setRubricFile( event.target.files[0] );
-        console.log(event.target.files[0]);
+        //console.log(event.target.files[0]);
     };
 
     const onStudentsFileChange = event => {
         setStudentsFile( event.target.files[0] );
-        console.log(event.target.files[0]);
+        //console.log(event.target.files[0]);
     };
 
     const onFilesUpload = () => {
-        const rubricFormData = new FormData();
-        const studentsFormData = new FormData();
+        
+        let rubricJson;
+        let studentsJson;
 
-        rubricFormData.append("rubric", rubricFile)
-        studentsFormData.append("rubric", studentsFile)
+        const rubricReader = new FileReader();
+        const studentsReader = new FileReader();
 
-        console.log(rubricFile)
-        console.log(studentsFile)
-        console.log(rubricFormData)
-        console.log(studentsFormData)
-        // axios.post()
-        // axios.post()
+        try {
+            rubricReader.readAsText(rubricFile, "UTF-8");
+            studentsReader.readAsText(studentsFile, "UTF-8");
+        } catch(error) {
+            alert("Not all files uploaded!");
+        }
+
+        rubricReader.onload = e => {
+            try {
+                rubricJson = JSON.parse(e.target.result)
+                console.log(rubricJson);
+                // axios.post()
+            } catch(error) {
+                alert("Not json format!");
+            }
+        }
+
+        studentsReader.onload = e => {
+            try {
+                studentsJson = Papa.parse(e.target.result, {header: true});
+                console.log(studentsJson.data);
+                // axios.post()
+            } catch(error) {
+                alert("Not csv format!");
+            }
+        }
+
     };
     
     return (
         <div>
-            <h1>marking</h1>
+            <h2>Marking</h2>
             <div>
-                <label>Rubric</label>
+                <label>Rubric:</label>
                 <input type="file" onChange={onRubricFileChange} />
+                <br/>
                 <label>Students List</label>
                 <input type="file" onChange={onStudentsFileChange} />
+                <br/>
                 <button onClick={onFilesUpload}>Upload</button>
             </div>
         </div>
