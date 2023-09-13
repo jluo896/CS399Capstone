@@ -14,12 +14,16 @@ class Rubric extends Component {
     }
     render() {
         return (
-            <div id="fb-editor" ref={this.fb}></div>
+            <div>
+                <h2>Marking</h2>
+                What on earth is this?!
+                <div id="fb-editor" ref={this.fb}></div>
+            </div>
         )
     }
 };
 
-export default Rubric
+export default Rubric;
 
 /*
 export default function Rubric() {
