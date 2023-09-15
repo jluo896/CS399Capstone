@@ -2,8 +2,14 @@ import React, {useState} from "react";
 
 import Papa from "papaparse";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
-export default function Marking() {
+/**
+ * Multiple file upload: https://codefrontend.com/file-upload-reactjs/
+ */
+
+export default function Upload() {
+    const API = "http://localhost:5000";
     const [rubricFile, setRubricFile] = useState(null);
     const [studentsFile, setStudentsFile] = useState(null);
 
@@ -37,6 +43,11 @@ export default function Marking() {
                 rubricJson = JSON.parse(e.target.result)
                 console.log(rubricJson);
                 // axios.post()
+
+                //const file = axios.get(API+"/rubric/jsonDownloadTest", {data : {"rubric":rubricJson}}).then(res => res.data);
+                //const file = new Blob([JSON.stringify(rubricJson)], { type: "application/json" });
+                //console.log(file);
+                //saveAs(file, "test.json");
             } catch(error) {
                 alert("Not json format!");
             }
