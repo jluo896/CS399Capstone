@@ -1,0 +1,62 @@
+
+[
+  {
+    "type": "header",
+    "subtype": "h1",
+    "label": "Question",
+    "access": false
+  },
+  {
+    "type": "paragraph",
+    "subtype": "p",
+    "label": "This is a description",
+    "access": false
+  },
+  {
+    "type": "radio-group",
+    "required": false,
+    "label": "Radio Group",
+    "inline": false,
+    "name": "radio-group-1694771219193-0",
+    "access": false,
+    "other": false,
+    "values": [
+      {
+        "label": "0",
+        "value": "option-1",
+        "selected": false
+      },
+      {
+        "label": "2",
+        "value": "option-2",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "type": "select",
+    "required": false,
+    "label": "Select",
+    "className": "form-control",
+    "name": "select-1694771221395-0",
+    "access": false,
+    "multiple": false,
+    "values": [
+      {
+        "label": "comment 1",
+        "value": "option-1",
+        "selected": true
+      },
+      {
+        "label": "comment 2",
+        "value": "option-2",
+        "selected": false
+      },
+      {
+        "label": "comment 3",
+        "value": "option-3",
+        "selected": false
+      }
+    ]
+  }
+]

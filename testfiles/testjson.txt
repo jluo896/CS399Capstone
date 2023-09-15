@@ -1,0 +1,9 @@
+{
+    "name": "test json file",
+    "value": 1,
+    "values": [
+        {
+            "nested-num": 1
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+import React, {useState} from "react";
+
+import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
+
+import Home from "./Routes/Home";
+import Rubric from "./Routes/Rubric";
+import Upload from "./Routes/Upload";
+import GradeMenu from "./Routes/GradeMenu";
+import GradePage from "./Routes/GradePage";
+
+function App() {
+    return (
+        <Router>
+            <nav>
+                <h1>GradePal</h1>
+                <Link to="/">Back</Link>
+            </nav>
+            <br />
+            <Routes>
+                <Route path="/" exact element={<Home/>} />
+                <Route path="/rubric" element={<Rubric/>} />
+                <Route path="/upload" element={<Upload/>} />
+                <Route path="/grademenu" element={<GradeMenu/>} />
+                <Route path="/gradepage" element={<GradePage/>} />
+            </Routes>
+        </Router>
+    )
+}
+
+export default App;
