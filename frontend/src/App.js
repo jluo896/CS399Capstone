@@ -20,8 +20,8 @@ function App() {
                 <Route path="/" exact element={<Home/>} />
                 <Route path="/rubric" element={<Rubric/>} />
                 <Route path="/upload" element={<Upload/>} />
-                <Route path="/grademenu" element={<GradeMenu/>} />
-                <Route path="/gradepage" element={<GradePage/>} />
+                <Route path="/grading/menu" element={<GradeMenu/>} />
+                <Route path="/grading/page" element={<GradePage/>} />
             </Routes>
         </Router>
     )
