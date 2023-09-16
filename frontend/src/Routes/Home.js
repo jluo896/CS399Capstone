@@ -7,7 +7,7 @@ export default function Home() {
         <div>
             <div><Link to="/rubric">Rubric</Link></div>
             <div><Link to="/upload">Upload</Link></div>
-            <div><Link to="/grademenu">Grading</Link></div>
+            <div><Link to="/grading">Grading</Link></div>
         </div>
     )
 };
