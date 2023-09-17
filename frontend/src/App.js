@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import './APP.css';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 
 import Home from "./Routes/Home";
@@ -12,7 +12,7 @@ function App() {
     return (
         <Router>
             <nav>
-                <h1>GradePal</h1>
+                <h1 class="title">GradePal</h1>
                 <Link to="/">Back</Link>
             </nav>
             <br />
