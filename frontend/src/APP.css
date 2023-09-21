@@ -6,10 +6,6 @@
     color: white;
     font-size: 48px;
 }
-.left {
-    float: left;
-    margin: auto;
-}
 .front{
     color: white;
     font-size: 32px;
@@ -19,5 +15,7 @@
     font-size: 16px;
 }
 body {
-    background: pink;
+    background-image: url("https://w.wallhaven.cc/full/dg/wallhaven-dgxk6o.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
