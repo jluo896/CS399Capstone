@@ -21,6 +21,7 @@ class Rubric extends Component {
         selectedFile: null, 
         courseId: 0, 
         courseName: "", 
+        assignmentId: 0,
         assignmentName: ""
     }
 
@@ -29,6 +30,7 @@ class Rubric extends Component {
             selectedFile: event.target.files[0], 
             courseId: this.state.courseId, 
             courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
             assignmentName: this.state.assignmentName
         })
     };
@@ -38,6 +40,7 @@ class Rubric extends Component {
             selectedFile: this.state.selectedFile, 
             courseId: event.target.value, 
             courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
             assignmentName: this.state.assignmentName
         })
     };
@@ -47,6 +50,17 @@ class Rubric extends Component {
             selectedFile: this.state.selectedFile, 
             courseId: this.state.courseId, 
             courseName: event.target.value,
+            assignmentId: this.state.assignmentId,
+            assignmentName: this.state.assignmentName
+        })
+    };
+
+    onAssignmentIdChange = (event) => {
+        this.setState({
+            selectedFile: this.state.selectedFile, 
+            courseId: event.target.value, 
+            courseName: this.state.courseName,
+            assignmentId: event.target.value,
             assignmentName: this.state.assignmentName
         })
     };
@@ -56,6 +70,7 @@ class Rubric extends Component {
             selectedFile: this.state.selectedFile, 
             courseId: this.state.courseId, 
             courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
             assignmentName: event.target.value
         })
     };
