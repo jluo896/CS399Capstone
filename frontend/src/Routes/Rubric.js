@@ -154,11 +154,11 @@ class Rubric extends Component {
                 <label class = "front1">Json Convertor and Download:</label>
                 <input type="file" onChange={this.onFileChange} />
                 <br/>
-                <label>Course Id:</label>
+                <label class = "front1">Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
-                <label>Course Name:</label>
+                <label class = "front1">Course Name:</label>
                 <input onChange={this.onCourseNameChange} />
-                <label>Assignment Name:</label>
+                <label class = "front1">Assignment Name:</label>
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
                 <button onClick={this.convertAndDownload}>Download</button>
