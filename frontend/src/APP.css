@@ -1,3 +1,21 @@
-.title {
-    color: #b51edb;
+*{
+    margin: 0;
+    padding: 0;
+}
+.title{
+    color: white;
+    font-size: 48px;
+}
+.front{
+    color: white;
+    font-size: 32px;
+}
+.front1{
+    color: white;
+    font-size: 16px;
+}
+body {
+    background-image: url("https://w.wallhaven.cc/full/dg/wallhaven-dgxk6o.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }

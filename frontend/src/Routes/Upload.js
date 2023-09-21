@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 
 import {Link} from "react-router-dom";
+
 import Papa from "papaparse";
 import axios from "axios";
 import { saveAs } from "file-saver";
+
 
 /**
  * Multiple file upload: https://codefrontend.com/file-upload-reactjs/
@@ -68,12 +70,12 @@ export default function Upload() {
     
     return (
         <div>
-            <h2>Marking</h2>
+            <h2 class = "front">Marking</h2>
             <div>
-                <label>Rubric:</label>
+                <label class = "front1">Rubric:</label>
                 <input type="file" onChange={onRubricFileChange} />
                 <br/>
-                <label>Students List</label>
+                <label class = "front1">Students List</label>
                 <input type="file" onChange={onStudentsFileChange} />
                 <br/>
                 <button onClick={onFilesUpload}>Upload</button>
