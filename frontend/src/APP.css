@@ -4,7 +4,19 @@
 }
 .title{
     color: white;
-    font-size: 60px;
+    font-size: 48px;
+}
+.left {
+    float: left;
+    margin: auto;
+}
+.front{
+    color: white;
+    font-size: 32px;
+}
+.front1{
+    color: white;
+    font-size: 16px;
 }
 body {
     background: pink;

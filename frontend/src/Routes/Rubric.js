@@ -1,7 +1,7 @@
 import { saveAs } from "file-saver";
 import $ from "jquery";
 import React, {Component, createRef} from "react";
-import './Routes.css';
+
 
 window.jQuery = $;
 window.$ = $;
@@ -61,17 +61,17 @@ class Rubric extends Component {
     render() {
         return (
             <div>
-                <h2>Marking</h2>
-                <p>We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
+                <h2 class = "front">Marking</h2>
+                <p class = "front1">We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
                 <ul>
-                    <li>Header - Question/Section Title</li>
-                    <li>Paragraph - Question/Section</li>
-                    <li>Radio - Preset Marks for Question/Section</li>
-                    <li>Select - Preset Comments</li>
+                    <li class = "front1">Header - Question/Section Title</li>
+                    <li class = "front1">Paragraph - Question/Section</li>
+                    <li class = "front1">Radio - Preset Marks for Question/Section</li>
+                    <li class = "front1">Select - Preset Comments</li>
                 </ul>
                 <div id="fb-editor" ref={this.fb}></div>
-                <p>Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
-                <label>Json Convertor and Download:</label>
+                <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
+                <label class = "front1">Json Convertor and Download:</label>
                 <input type="file" onChange={this.onFileChange} />
                 <button onClick={this.convertAndDownload}>Upload</button>
             </div>
