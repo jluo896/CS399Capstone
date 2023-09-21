@@ -140,6 +140,7 @@ class Rubric extends Component {
     render() {
         return (
             <div>
+                <Link to="/" class = "front">Back</Link>
                 <h2 class = "front">Marking</h2>
                 <p class = "front1">We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
                 <ul>
