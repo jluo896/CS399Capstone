@@ -81,7 +81,7 @@ export default function Upload() {
                 <br/>
                 <button class = "button" onClick={onFilesUpload}>Upload</button>
             </div>
-            <div><Link to="/grading" class = "front">Grade Now</Link></div>
+            <div><Link to="/grading/menu" class = "front">Grade Now</Link></div>
         </div>
     )
     
