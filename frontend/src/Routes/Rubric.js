@@ -152,7 +152,7 @@ class Rubric extends Component {
                 <div id="fb-editor" ref={this.fb}></div>
                 <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
                 <label class = "front1">Json Convertor and Download:</label>
-                <input type="file" onChange={this.onFileChange} />
+                <input class = "front1" type="file" onChange={this.onFileChange} />
                 <br/>
                 <label class = "front1">Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
@@ -161,7 +161,7 @@ class Rubric extends Component {
                 <label class = "front1">Assignment Name:</label>
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
-                <button onClick={this.convertAndDownload}>Download</button>
+                <button type="button" class = "button" onClick={this.convertAndDownload}>Download</button>
             </div>
         )
     }
