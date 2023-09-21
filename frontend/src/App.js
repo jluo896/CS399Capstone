@@ -12,8 +12,8 @@ function App() {
     return (
         <Router>
             <nav>
-                <h1 class="title">GradePal</h1>
-                <Link to="/">Back</Link>
+                <h1 class = "title">GradePal</h1>
+                <Link to="/" class = "front">Back</Link>
             </nav>
             <br />
             <Routes>
