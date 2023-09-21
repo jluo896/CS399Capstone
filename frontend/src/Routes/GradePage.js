@@ -1,5 +1,6 @@
 import React from "react";
 
+import {Link} from "react-router-dom";
 
 export default function GradePage() {
     // grading functions
@@ -29,6 +30,8 @@ export default function GradePage() {
     return (
         //grading forms
         <div>
+            <Link to="/">Home</Link>
+            <Link to="/grading/menu">Back</Link>
             {rubrics.map(value => 
             <div>
                 <label>{value.title}</label>
