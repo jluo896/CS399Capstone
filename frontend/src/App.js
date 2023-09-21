@@ -13,7 +13,6 @@ function App() {
         <Router>
             <nav>
                 <h1 class="title">GradePal</h1>
-                <Link to="/">Back</Link>
             </nav>
             <br />
             <Routes>
