@@ -1,6 +1,7 @@
 import { saveAs } from "file-saver";
 import $ from "jquery";
 import React, {Component, createRef} from "react";
+import './Routes.css';
 
 window.jQuery = $;
 window.$ = $;
