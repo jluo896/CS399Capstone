@@ -1,4 +1,7 @@
 import React, {useState} from "react";
+
+import {Link} from "react-router-dom";
+
 import Papa from "papaparse";
 import axios from "axios";
 import { saveAs } from "file-saver";
@@ -77,6 +80,7 @@ export default function Upload() {
                 <br/>
                 <button onClick={onFilesUpload}>Upload</button>
             </div>
+            <div><Link to="/grading">Grade Now</Link></div>
         </div>
     )
     

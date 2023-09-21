@@ -1,6 +1,9 @@
+import React, { Component, createRef } from "react";
+import Papa from "papaparse";
 import { saveAs } from "file-saver";
 import $ from "jquery";
-import React, {Component, createRef} from "react";
+
+import {Link} from "react-router-dom";
 
 
 window.jQuery = $;
@@ -15,10 +18,62 @@ class Rubric extends Component {
         $(this.fb.current).formBuilder();
     }
 
-    state = {selectedFile: null}
+    state = {
+        selectedFile: null, 
+        courseId: 0, 
+        courseName: "", 
+        assignmentId: 0,
+        assignmentName: ""
+    }
 
     onFileChange = (event) => {
-        this.setState({selectedFile: event.target.files[0] })
+        this.setState({
+            selectedFile: event.target.files[0], 
+            courseId: this.state.courseId, 
+            courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
+            assignmentName: this.state.assignmentName
+        })
+    };
+
+    onCourseIdChange = (event) => {
+        this.setState({
+            selectedFile: this.state.selectedFile, 
+            courseId: event.target.value, 
+            courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
+            assignmentName: this.state.assignmentName
+        })
+    };
+
+    onCourseNameChange = (event) => {
+        this.setState({
+            selectedFile: this.state.selectedFile, 
+            courseId: this.state.courseId, 
+            courseName: event.target.value,
+            assignmentId: this.state.assignmentId,
+            assignmentName: this.state.assignmentName
+        })
+    };
+
+    onAssignmentIdChange = (event) => {
+        this.setState({
+            selectedFile: this.state.selectedFile, 
+            courseId: event.target.value, 
+            courseName: this.state.courseName,
+            assignmentId: event.target.value,
+            assignmentName: this.state.assignmentName
+        })
+    };
+
+    onAssignmentNameChange = (event) => {
+        this.setState({
+            selectedFile: this.state.selectedFile, 
+            courseId: this.state.courseId, 
+            courseName: this.state.courseName,
+            assignmentId: this.state.assignmentId,
+            assignmentName: event.target.value
+        })
     };
 
     convertAndDownload = () => {
@@ -37,21 +92,45 @@ class Rubric extends Component {
                 rubricBaseJson = JSON.parse(e.target.result)
 
                 let rubricNewRubric = [];
+                let marksList = []
 
                 for (let i = 0; i < rubricBaseJson.length; i=i+4) {
+                    if (
+                        rubricBaseJson[i].type !== "header" || 
+                        rubricBaseJson[i+1].type !== "paragraph" || 
+                        rubricBaseJson[i+2].type !== "radio-group" || 
+                        rubricBaseJson[i+3].type !== "select")
+                        {
+                            throw "error";
+                    }
+                    let totalMarkList = rubricBaseJson[i+2].values.map(value => Number(value.label));
+                    marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
                     rubricNewRubric.push({
+                        "Course Id": this.state.courseId,
                         "Title": rubricBaseJson[i].label,
                         "Description": rubricBaseJson[i+1].label,
-                        "Marks": [rubricBaseJson[i+2].values[0].label, rubricBaseJson[i+2].values[1].label],
-                        "Comments": rubricBaseJson[i+3].label,
+                        "Marks": rubricBaseJson[i+2].values.map(value => value.label),
+                        "Comments": rubricBaseJson[i+3].values.map(value => value.label),
                     });
                 }
 
-                console.log(rubricBaseJson);
+                let totalMark = 0;
+                for (let i=0;i<marksList.length;i++) {totalMark+=marksList[i]}
+                //console.log(totalMark)
+
+                rubricNewRubric.unshift({
+                    "Course Id": this.state.courseId,
+                    "Title": this.state.courseName,
+                    "Description": this.state.assignmentName,
+                    "Marks": [totalMark],
+                    "Comments": [],
+                });
+
+                //console.log(rubricBaseJson);
                 console.log(rubricNewRubric);
 
-                const file = new Blob([JSON.stringify(rubricNewRubric)],{ type: "application/json" });
-                saveAs(file, "test.json");
+                const file = new Blob([Papa.unparse(rubricNewRubric)],{ type: "text/csv" });
+                saveAs(file, "["+this.state.courseId+"]"+this.state.assignmentName+".csv");
             } catch(error) {
                 alert("Not json format!");
             }
@@ -73,7 +152,15 @@ class Rubric extends Component {
                 <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
                 <label class = "front1">Json Convertor and Download:</label>
                 <input type="file" onChange={this.onFileChange} />
-                <button onClick={this.convertAndDownload}>Upload</button>
+                <br/>
+                <label>Course Id:</label>
+                <input onChange={this.onCourseIdChange} />
+                <label>Course Name:</label>
+                <input onChange={this.onCourseNameChange} />
+                <label>Assignment Name:</label>
+                <input onChange={this.onAssignmentNameChange} />
+                <br/>
+                <button onClick={this.convertAndDownload}>Download</button>
             </div>
         )
     }
