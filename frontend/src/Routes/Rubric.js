@@ -94,6 +94,38 @@ class Rubric extends Component {
                 let rubricNewRubric = [];
                 let marksList = []
 
+                for (let i = 0; i < rubricBaseJson.length; i++) {
+                    if (
+                        rubricBaseJson[i].type !== "radio-group" && 
+                        rubricBaseJson[i].type !== "select")
+                        {
+                            throw "error";
+                    }
+                    let totalMarkList = rubricBaseJson[i].values.map(value => Number(value.label));
+                    marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
+                    rubricNewRubric.push({
+                        "Course Id": this.state.courseId,
+                        "Assignment Id": this.state.assignmentId,
+                        "Title": rubricBaseJson[i].label,
+                        "Marks": rubricBaseJson[i].values.map(value => value.label).filter(function(label) {if (label !== "") return label}),
+                        "Comments": rubricBaseJson[i].values.map(value => value.value).filter(function(value) {if (value !== "") return value}),
+                    });
+                }
+
+                let totalMark = 0;
+                for (let i=0;i<marksList.length;i++) {totalMark+=marksList[i]}
+                //console.log(totalMark)
+
+                rubricNewRubric.unshift({
+                    "Course Id": this.state.courseId,
+                    "Assignment Id": this.state.assignmentId,
+                    "Title": this.state.assignmentName,
+                    "Marks": [totalMark],
+                    "Comments": [],
+                });
+
+                /*
+
                 for (let i = 0; i < rubricBaseJson.length; i=i+4) {
                     if (
                         rubricBaseJson[i].type !== "header" || 
@@ -125,8 +157,8 @@ class Rubric extends Component {
                     "Marks": [totalMark],
                     "Comments": [],
                 });
-
-                //console.log(rubricBaseJson);
+                */
+                
                 console.log(rubricNewRubric);
 
                 const file = new Blob([Papa.unparse(rubricNewRubric)],{ type: "text/csv" });
@@ -156,26 +188,18 @@ class Rubric extends Component {
                 <br/>
                 <label>Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
+                <label>Assignment Id:</label>
+                <input onChange={this.onAssignmentIdChange} />
                 <label>Course Name:</label>
                 <input onChange={this.onCourseNameChange} />
                 <label>Assignment Name:</label>
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
                 <button onClick={this.convertAndDownload}>Download</button>
+                <button onClick={null}>Upload Rubric</button>
             </div>
         )
     }
 };
 
 export default Rubric;
-
-/*
-export default function Rubric() {
-    com
-    return (
-        <div>
-            <p>rubric</p>
-        </div>
-    )
-};
-*/
