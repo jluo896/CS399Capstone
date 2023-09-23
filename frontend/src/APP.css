@@ -3,12 +3,13 @@
     padding: 0;
 }
 .title{
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 48px;
+    font-style: italic;
 }
 .front{
     color: white;
-    font-size: 32px;
+    font-size: 36px;
 }
 .front1{
     color: white;
@@ -18,4 +19,64 @@ body {
     background-image: url("https://w.wallhaven.cc/full/dg/wallhaven-dgxk6o.png");
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: Arial;
 }
+.button {
+    color: rgb(255, 0, 0);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+}
+.home {
+    width: 100%;
+    display: block;
+    margin: auto;
+    position: absolute;
+}
+.div-button-l{
+    display: flex;
+    float: left;
+    width: 33.333%;
+    align-items: center;
+    justify-content: center;
+}
+.div-button-c{
+    display: flex;
+    float: left;
+    width: 33.333%;
+    align-items: center;
+    justify-content: center;
+}
+.div-button-r{
+    display: flex;
+    float: left;
+    width: 33.333%;
+    align-items: center;
+    justify-content: center;
+}
+.move-to-c{
+    margin-top: 16%;
+}
+.button-link{
+    color: white;
+    font-size: 80px;
+    text-decoration:none;
+    font-weight: bold;
+    font-style: italic;
+}
+.button-link:hover{
+    color: #ff0000;
+}
+.back{
+    font-size: 40px;
+    color: white;
+    text-decoration:none;
+    font-weight: bold;
+    font-style: italic;
+}
+.back:hover{
+    color: rgb(255, 0, 0);
+}
+
+

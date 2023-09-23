@@ -31,7 +31,7 @@ export default function GradePage() {
         //grading forms
         <div>
             <Link to="/">Home</Link>
-            <Link to="/grading/menu">Back</Link>
+            <Link to="/" class = "back">Back</Link>
             {rubrics.map(value => 
             <div>
                 <label>{value.title}</label>

@@ -172,7 +172,7 @@ class Rubric extends Component {
     render() {
         return (
             <div>
-                <Link to="/" class = "front">Back</Link>
+                <Link to="/" class = "back">Back</Link>
                 <h2 class = "front">Marking</h2>
                 <p class = "front1">We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
                 <ul>
@@ -181,21 +181,21 @@ class Rubric extends Component {
                     <li class = "front1">Radio - Preset Marks for Question/Section</li>
                     <li class = "front1">Select - Preset Comments</li>
                 </ul>
-                <label>Course Id:</label>
+                <label class = "front1">Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
-                <label>Assignment Id:</label>
+                <label class = "front1">Assignment Id:</label>
                 <input onChange={this.onAssignmentIdChange} />
-                <label>Course Name:</label>
+                <label class = "front1">Course Name:</label>
                 <input onChange={this.onCourseNameChange} />
-                <label>Assignment Name:</label>
+                <label class = "front1">Assignment Name:</label>
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
                 <div id="fb-editor" ref={this.fb}></div>
                 <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
                 <label class = "front1">Json Convertor and Download:</label>
-                <input type="file" onChange={this.onFileChange} />
+                <input class = "front1" type="file" onChange={this.onFileChange} />
                 <br/>
-                <button onClick={this.convertAndDownload}>Download</button>
+                <button type="button" class = "button" onClick={this.convertAndDownload}>Download</button>
                 <button onClick={null}>Upload Rubric</button>
             </div>
         )
