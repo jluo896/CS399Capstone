@@ -12,7 +12,7 @@ function App() {
     return (
         <Router>
             <nav>
-              <h1 class="title">GradePal</h1>
+              <Link to="/" class="title"><h1 class = "title-h1">GradePal</h1></Link>
             </nav>
             <br />
             <Routes>
