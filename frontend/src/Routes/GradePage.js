@@ -7,7 +7,7 @@ export default function GradePage() {
     return (
         //grading forms
         <div>
-            <Link to="/" class = "front">Back</Link>
+            <Link to="/" class = "back">Back</Link>
 
         </div>
     )

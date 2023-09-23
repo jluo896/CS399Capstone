@@ -70,7 +70,7 @@ export default function Upload() {
     
     return (
         <div>
-            <Link to="/" class = "front">Back</Link>
+            <Link to="/" class = "back">Back</Link>
             <h2 class = "front">Marking</h2>
             <div>
                 <label class = "front1">Rubric:</label>

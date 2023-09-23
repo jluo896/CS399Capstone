@@ -3,13 +3,13 @@
     padding: 0;
 }
 .title{
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 48px;
+    font-style: italic;
 }
 .front{
     color: white;
     font-size: 36px;
-    text-decoration:none
 }
 .front1{
     color: white;
@@ -22,7 +22,7 @@ body {
     font-family: Arial;
 }
 .button {
-    color: purple;
+    color: rgb(255, 0, 0);
     border: none;
     cursor: pointer;
     font-weight: bold;
@@ -63,10 +63,20 @@ body {
     font-size: 80px;
     text-decoration:none;
     font-weight: bold;
+    font-style: italic;
 }
 .button-link:hover{
     color: #ff0000;
 }
-
+.back{
+    font-size: 40px;
+    color: white;
+    text-decoration:none;
+    font-weight: bold;
+    font-style: italic;
+}
+.back:hover{
+    color: rgb(255, 0, 0);
+}
 
 
