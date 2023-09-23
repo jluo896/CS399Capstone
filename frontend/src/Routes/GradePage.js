@@ -52,7 +52,7 @@ export default function GradePage() {
                 <input type="radio" name={value.title} value="other" />
                 <input type="text" name={value.title} />
             </div>)}
-            <p>{test[0].title}</p>
+            <p>{rubrics[0].title}</p>
         </div>
     )
 };
