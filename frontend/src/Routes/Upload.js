@@ -43,8 +43,8 @@ export default function Upload() {
 
         rubricReader.onload = e => {
             try {
-                rubricJson = JSON.parse(e.target.result)
-                console.log(rubricJson);
+                studentsJson = Papa.parse(e.target.result, {header: true});
+                console.log(studentsJson.data);
                 // axios.post()
 
                 //const file = axios.get(API+"/rubric/jsonDownloadTest", {data : {"rubric":rubricJson}}).then(res => res.data);
@@ -52,7 +52,7 @@ export default function Upload() {
                 //console.log(file);
                 //saveAs(file, "test.json");
             } catch(error) {
-                alert("Not json format!");
+                alert("Not csv format!");
             }
         }
 
