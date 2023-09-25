@@ -174,12 +174,17 @@ class Rubric extends Component {
             <div>
                 <Link to="/" class = "back">Back</Link>
                 <h2 class = "front">Marking</h2>
-                <p class = "front1">We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
+                <p class = "front1">We will use this form builder which we definitely not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
                 <ul>
-                    <li class = "front1">Header - Question/Section Title</li>
-                    <li class = "front1">Paragraph - Question/Section</li>
-                    <li class = "front1">Radio - Preset Marks for Question/Section</li>
-                    <li class = "front1">Select - Preset Comments</li>
+                    <li class = "front1">Insert course id, assignment id, course name, and assignment name.</li>
+                    <li class = "front1">Insert either Radio Group or Select for each question/section in the form builder using drag and drop.</li>
+                    <li class = "front1">Editing each question/section:</li>
+                    <ul>
+                        <li class = "front1">Label: The question or section title</li>
+                        <li class = "front1">Options - Left column: Marks</li>
+                        <li class = "front1">Options - RIght column: Comment</li>
+                        <li class="front1">Note that the number of marks and comments don't have to be the same.</li>
+                    </ul>
                 </ul>
                 <label class = "front1">Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
@@ -191,7 +196,7 @@ class Rubric extends Component {
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
                 <div id="fb-editor" ref={this.fb}></div>
-                <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
+                <p class = "front1">Copy the json from the form builder and create a new text file, then upload that json file into the form below. It would dowbnload a rubric as a csv to the appropriate, simplified format.</p>
                 <label class = "front1">Json Convertor and Download:</label>
                 <input class = "front1" type="file" onChange={this.onFileChange} />
                 <br/>
