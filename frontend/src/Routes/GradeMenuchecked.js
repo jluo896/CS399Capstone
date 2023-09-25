@@ -25,7 +25,7 @@ const studentInfo = [
     },
 
 ]
-export default function GradeMenu() {
+export default function GradeMenuN() {
     return (
         <div>
             <Link to="/">Back</Link>
@@ -35,7 +35,7 @@ export default function GradeMenu() {
                 </div>
                 <div class="library">
 
-                    <href class="student-item"><Link to="/grading/page1">Warren Buffet, ungraded</Link></href>
+                    <href class="student-item"><Link to="/grading/page1">Warren Buffet, graded</Link></href>
                     {studentInfo.map(value =>
                         <href class="student-item">{value.courseCode}, ungraded</href>)}
                 </div>

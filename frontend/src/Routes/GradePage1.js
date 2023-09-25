@@ -3,7 +3,7 @@ import './GradePage1.css';
 import { Link } from "react-router-dom";
 import Rubric from "./Rubric";
 
-export default function GradePageN() {
+export default function GradePage1() {
     // grading functions
     const rubrics = [
         {
@@ -68,7 +68,7 @@ export default function GradePageN() {
                                 {value.comments.map(mark =>
 
                                     <div>
-                                        <input type="radio" name={value.title} value={mark} />
+                                        <input type="radio" name={value.title + "comment"} value={mark} />
                                         <label class="radio-comments">{mark}</label>
                                     </div>
                                 )}
@@ -78,7 +78,7 @@ export default function GradePageN() {
 
                     </ul>
                     <div class="btn-block">
-                        <button type="submit" href="/"><Link to="/grading/menuN" class="button-link" type="botton">Commit Change</Link></button>
+                        <button type="submit" href="/"><Link to="/grading/menuN" type="botton">Commit Change</Link> </button>
                     </div>
                     <div class="btn-block">
 

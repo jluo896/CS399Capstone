@@ -7,6 +7,9 @@ import Rubric from "./Routes/Rubric";
 import Upload from "./Routes/Upload";
 import GradeMenu from "./Routes/GradeMenu";
 import GradePage from "./Routes/GradePage";
+import GradePage1 from "./Routes/GradePage1";
+import GradePageN from "./Routes/GradePageN";
+import GradeMenuN from "./Routes/GradeMenuchecked";
 
 function App() {
     return (
@@ -20,7 +23,10 @@ function App() {
                 <Route path="/rubric" element={<Rubric/>} />
                 <Route path="/upload" element={<Upload/>} />
                 <Route path="/grading/menu" element={<GradeMenu/>} />
-                <Route path="/grading/page" element={<GradePage/>} />
+                <Route path="/grading/page" element={<GradePage />} />
+                <Route path="/grading/page1" element={<GradePage1 />} />
+                <Route path="/grading/menuN" element={<GradeMenuN />} />
+                <Route path="/grading/pageN" element={<GradePage1 />} />
             </Routes>
         </Router>
     )
