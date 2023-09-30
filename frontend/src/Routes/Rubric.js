@@ -200,8 +200,8 @@ class Rubric extends Component {
                 <label class = "front1">Json Convertor and Download:</label>
                 <input class = "front1" type="file" onChange={this.onFileChange} />
                 <br/>
-                <button type="button" class = "button" onClick={this.convertAndDownload}>Download</button>
-                <button onClick={null}>Upload Rubric</button>
+                <button type="button" class = "rubric-button" onClick={this.convertAndDownload}>Download</button>
+                <button type="button" class = "rubric-button" onClick={null}>Upload Rubric</button>
             </div>
         )
     }
