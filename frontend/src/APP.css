@@ -1,18 +1,12 @@
-/*
-*{
-    margin: 0;
-    padding: 0;
-}
-*/
 .title{
     text-decoration:none;
-}
-.title-h1{
     color: rgb(255, 255, 255);
     font-size: 48px;
     font-style: italic;
+    margin:0;
+    font-weight: bolder;
 }
-.title-h1:hover {
+.title:hover {
     color: #ff0000;
 }
 .front{
@@ -37,7 +31,7 @@ body {
     font-size: 24px;
 }
 .home {
-    width: 100%;
+    width: 99%;
     display: block;
     margin: auto;
     position: absolute;
@@ -82,13 +76,22 @@ body {
     text-decoration:none;
     font-weight: bold;
     font-style: italic;
+    float: right;
 }
 .back:hover{
     color: rgb(255, 0, 0);
 }
-
-
 .blank-container {
     font-family: Arial, sans-serif;
     padding: 20px;
+}
+.Grade-Now{
+    color: white;
+    font-size: 40px;
+    text-decoration:none;
+    font-weight: bold;
+    font-style: italic;
+}
+.Grade-Now:hover{
+    color: #ff0000;
 }
