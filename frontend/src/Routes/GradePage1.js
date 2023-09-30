@@ -35,7 +35,7 @@ export default function GradePage1() {
     return (
         //grading forms
         <div>
-            <Link to="/">Back</Link>
+            <Link to="/" class= "back">Back</Link>
             <div class="blank-container">
                 {
                     <div class="grade-header">
