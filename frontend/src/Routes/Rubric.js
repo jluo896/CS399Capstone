@@ -104,11 +104,12 @@ class Rubric extends Component {
                     let totalMarkList = rubricBaseJson[i].values.map(value => Number(value.label));
                     marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
                     rubricNewRubric.push({
-                        "Course Id": this.state.courseId,
-                        "Assignment Id": this.state.assignmentId,
-                        "Title": rubricBaseJson[i].label,
-                        "Marks": rubricBaseJson[i].values.map(value => value.label).filter(function(label) {if (label !== "") return label}),
-                        "Comments": rubricBaseJson[i].values.map(value => value.value).filter(function(value) {if (value !== "") return value}),
+                        "courseId": this.state.courseId,
+                        "assignmentId": this.state.assignmentId,
+                        "questionId": i+1,
+                        "title": rubricBaseJson[i].label,
+                        "marks": rubricBaseJson[i].values.map(value => value.label).filter(function(label) {if (label !== "") return label}),
+                        "comments": rubricBaseJson[i].values.map(value => value.value).filter(function(value) {if (value !== "") return value}),
                     });
                 }
 
@@ -117,47 +118,13 @@ class Rubric extends Component {
                 //console.log(totalMark)
 
                 rubricNewRubric.unshift({
-                    "Course Id": this.state.courseId,
-                    "Assignment Id": this.state.assignmentId,
-                    "Title": this.state.assignmentName,
-                    "Marks": [totalMark],
-                    "Comments": [],
+                    "courseId": this.state.courseId,
+                    "assignmentId": this.state.assignmentId,
+                    "questionId": 0,
+                    "title": `${this.state.courseName},${this.state.assignmentName}`,
+                    "marks": [totalMark],
+                    "comments": [],
                 });
-
-                /*
-
-                for (let i = 0; i < rubricBaseJson.length; i=i+4) {
-                    if (
-                        rubricBaseJson[i].type !== "header" || 
-                        rubricBaseJson[i+1].type !== "paragraph" || 
-                        rubricBaseJson[i+2].type !== "radio-group" || 
-                        rubricBaseJson[i+3].type !== "select")
-                        {
-                            throw "error";
-                    }
-                    let totalMarkList = rubricBaseJson[i+2].values.map(value => Number(value.label));
-                    marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
-                    rubricNewRubric.push({
-                        "Course Id": this.state.courseId,
-                        "Title": rubricBaseJson[i].label,
-                        "Description": rubricBaseJson[i+1].label,
-                        "Marks": rubricBaseJson[i+2].values.map(value => value.label),
-                        "Comments": rubricBaseJson[i+3].values.map(value => value.label),
-                    });
-                }
-
-                let totalMark = 0;
-                for (let i=0;i<marksList.length;i++) {totalMark+=marksList[i]}
-                //console.log(totalMark)
-
-                rubricNewRubric.unshift({
-                    "Course Id": this.state.courseId,
-                    "Title": this.state.courseName,
-                    "Description": this.state.assignmentName,
-                    "Marks": [totalMark],
-                    "Comments": [],
-                });
-                */
                 
                 console.log(rubricNewRubric);
 
