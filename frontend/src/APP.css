@@ -51,21 +51,21 @@ body {
 .div-button-l{
     display: flex;
     float: left;
-    width: 33.333%;
+    width: 33.3333%;
     align-items: center;
     justify-content: center;
 }
 .div-button-c{
     display: flex;
     float: left;
-    width: 33.333%;
+    width: 33.3333%;
     align-items: center;
     justify-content: center;
 }
 .div-button-r{
     display: flex;
     float: left;
-    width: 33.333%;
+    width: 33.3333%;
     align-items: center;
     justify-content: center;
 }
@@ -109,5 +109,12 @@ body {
 }
 .move-left{
     float: left;
+}
+.upload-page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
