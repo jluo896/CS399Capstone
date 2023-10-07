@@ -32,9 +32,9 @@ const studentInfos = [
 export default function GradeMenu() {
     return (
         <div>
-            <Link to="/" className="back">Back</Link>
-            <div className="menubox">
-                <div className="sort-row">
+            <Link to="/" class= "back">Back</Link>
+            <div class="menubox">
+                <div class="sort-row">
                     <p>Rows for future sort functions</p>
                 </div>
                 <div className="library">

@@ -1,4 +1,4 @@
-Course Id,Assignment Id,Title,Marks,Comments
-1,1,Test Assignment 1,8,
-1,1,Question 1,"0,1,2","comment 1,comment 2,comment 3,comment 4"
-1,1,Question 2,"0,2,4,6","comment 1,comment 2"
+courseId,assignmentId,questionId,title,marks,comments
+1,1,0,Test Assignment 1,8,
+1,1,1,Question 1,"0,1,2","comment 1,comment 2,comment 3,comment 4"
+1,1,2,Question 2,"0,2,4,6","comment 1,comment 2"

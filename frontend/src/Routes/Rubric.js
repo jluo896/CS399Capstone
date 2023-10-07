@@ -104,11 +104,12 @@ class Rubric extends Component {
                     let totalMarkList = rubricBaseJson[i].values.map(value => Number(value.label));
                     marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
                     rubricNewRubric.push({
-                        "Course Id": this.state.courseId,
-                        "Assignment Id": this.state.assignmentId,
-                        "Title": rubricBaseJson[i].label,
-                        "Marks": rubricBaseJson[i].values.map(value => value.label).filter(function(label) {if (label !== "") return label}),
-                        "Comments": rubricBaseJson[i].values.map(value => value.value).filter(function(value) {if (value !== "") return value}),
+                        "courseId": this.state.courseId,
+                        "assignmentId": this.state.assignmentId,
+                        "questionId": i+1,
+                        "title": rubricBaseJson[i].label,
+                        "marks": rubricBaseJson[i].values.map(value => value.label).filter(function(label) {if (label !== "") return label}),
+                        "comments": rubricBaseJson[i].values.map(value => value.value).filter(function(value) {if (value !== "") return value}),
                     });
                 }
 
@@ -117,47 +118,13 @@ class Rubric extends Component {
                 //console.log(totalMark)
 
                 rubricNewRubric.unshift({
-                    "Course Id": this.state.courseId,
-                    "Assignment Id": this.state.assignmentId,
-                    "Title": this.state.assignmentName,
-                    "Marks": [totalMark],
-                    "Comments": [],
+                    "courseId": this.state.courseId,
+                    "assignmentId": this.state.assignmentId,
+                    "questionId": 0,
+                    "title": `${this.state.courseName},${this.state.assignmentName}`,
+                    "marks": [totalMark],
+                    "comments": [],
                 });
-
-                /*
-
-                for (let i = 0; i < rubricBaseJson.length; i=i+4) {
-                    if (
-                        rubricBaseJson[i].type !== "header" || 
-                        rubricBaseJson[i+1].type !== "paragraph" || 
-                        rubricBaseJson[i+2].type !== "radio-group" || 
-                        rubricBaseJson[i+3].type !== "select")
-                        {
-                            throw "error";
-                    }
-                    let totalMarkList = rubricBaseJson[i+2].values.map(value => Number(value.label));
-                    marksList.push(totalMarkList.reduce((a,b)=>Math.max(a,b)));
-                    rubricNewRubric.push({
-                        "Course Id": this.state.courseId,
-                        "Title": rubricBaseJson[i].label,
-                        "Description": rubricBaseJson[i+1].label,
-                        "Marks": rubricBaseJson[i+2].values.map(value => value.label),
-                        "Comments": rubricBaseJson[i+3].values.map(value => value.label),
-                    });
-                }
-
-                let totalMark = 0;
-                for (let i=0;i<marksList.length;i++) {totalMark+=marksList[i]}
-                //console.log(totalMark)
-
-                rubricNewRubric.unshift({
-                    "Course Id": this.state.courseId,
-                    "Title": this.state.courseName,
-                    "Description": this.state.assignmentName,
-                    "Marks": [totalMark],
-                    "Comments": [],
-                });
-                */
                 
                 console.log(rubricNewRubric);
 
@@ -174,12 +141,17 @@ class Rubric extends Component {
             <div>
                 <Link to="/" class = "back">Back</Link>
                 <h2 class = "front">Marking</h2>
-                <p class = "front1">We will use this form builder which we definitly not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
+                <p class = "front1">We will use this form builder which we definitely not steal from the internet. Here is what you're suppose to do to create the appropriate rubric format for each question/section. </p>
                 <ul>
-                    <li class = "front1">Header - Question/Section Title</li>
-                    <li class = "front1">Paragraph - Question/Section</li>
-                    <li class = "front1">Radio - Preset Marks for Question/Section</li>
-                    <li class = "front1">Select - Preset Comments</li>
+                    <li class = "front1">Insert course id, assignment id, course name, and assignment name.</li>
+                    <li class = "front1">Insert either Radio Group or Select for each question/section in the form builder using drag and drop.</li>
+                    <li class = "front1">Editing each question/section:</li>
+                    <ul>
+                        <li class = "front1">Label: The question or section title</li>
+                        <li class = "front1">Options - Left column: Marks</li>
+                        <li class = "front1">Options - RIght column: Comment</li>
+                        <li class="front1">Note that the number of marks and comments don't have to be the same.</li>
+                    </ul>
                 </ul>
                 <label class = "front1">Course Id:</label>
                 <input onChange={this.onCourseIdChange} />
@@ -191,12 +163,12 @@ class Rubric extends Component {
                 <input onChange={this.onAssignmentNameChange} />
                 <br/>
                 <div id="fb-editor" ref={this.fb}></div>
-                <p class = "front1">Copy the json from the form builder and create a new json file, then upload that json file into the form below. It would dowbnload a rubric in json (plan to do csv as well) to the apprioriate format.</p>
+                <p class = "front1">Copy the json from the form builder and create a new text file, then upload that json file into the form below. It would dowbnload a rubric as a csv to the appropriate, simplified format.</p>
                 <label class = "front1">Json Convertor and Download:</label>
                 <input class = "front1" type="file" onChange={this.onFileChange} />
                 <br/>
-                <button type="button" class = "button" onClick={this.convertAndDownload}>Download</button>
-                <button onClick={null}>Upload Rubric</button>
+                <button type="button" class = "rubric-button" onClick={this.convertAndDownload}>Download</button>
+                <button type="button" class = "rubric-button" onClick={null}>Upload Rubric</button>
             </div>
         )
     }
