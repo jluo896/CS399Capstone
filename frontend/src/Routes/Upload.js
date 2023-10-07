@@ -73,16 +73,22 @@ export default function Upload() {
         <div>
             <Link to="/" class = "back">Back</Link>
             <h2 class = "front">Marking</h2>
-            <div>
-                <label class = "front1">Rubric:</label>
-                <input class = "front1" type="file" onChange={onRubricFileChange} />
-                <br/>
-                <label class = "front1">Students List</label>
-                <input class = "front1" type="file" onChange={onStudentsFileChange} />
-                <br/>
-                <button class = "button" onClick={onFilesUpload}>Upload</button>
+            <div  class = "upload-page  move-left">
+                <div>
+                    <label class = "front1">Rubric:</label>
+                    <input class = "front1" type="file" onChange={onRubricFileChange} />
+                    <br/>
+                </div>
+                <div>
+                    <label class = "front1">Students List:</label>
+                    <input class = "front1" type="file" onChange={onStudentsFileChange} />
+                    <br/>
+                </div>
             </div>
-            <div><Link to="/grading/menu" class = "front">Grade Now</Link></div>
+            <div class = "upload-page">
+                <div><button class = "upload-button" onClick={onFilesUpload}>Upload</button></div>
+                <div><Link to="/grading/menu" type = "button" class = "upload-button">Grade Now</Link></div>
+            </div>
         </div>
     )
     

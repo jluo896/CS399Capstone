@@ -1,95 +1,113 @@
 .blank-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f8f8f8;
-    max-width: 80%;
-    padding-left: 30px;
-    max-height:90%;
-    position: center;
-    
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+  max-width: 80%;
+  padding-left: 30px;
+  max-height:90%;
+  position: center;
+  
 }
 
-.grade-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.grade-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 2px solid #333; /* Add a bottom border for separation */
 }
 
-.grade-title, .grade-details {
-    flex: 1;
+/* Styles for the "grade-details" section */
+.grade-details {
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Add a bottom border for separation */
 }
 
 
 .question {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
-    .question > div {
-        margin-bottom: 20px;
-    }
+  .question > div {
+      margin-bottom: 20px;
+  }
 
 
-    .question label {
-        font-weight: bold;
-    }
+  .question label {
+      font-weight: bold;
+  }
 
 
-    .question span {
-        display: inline-block;
-        cursor: pointer;
-        position: relative;
-        margin-right: 10px;
-    }
+  .question span {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      margin-right: 10px;
+  }
 
 
-    .question label {
-        display: block;
-        /*need to changev*/
-        max-width: 400px;
-    }
+  .question label {
+      display: block;
+      /*need to changev*/
+      max-width: 400px;
+  }
 
 
 
-    .question input[type="text"] {
-        max-width: 50px;
-        padding: 5px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 30px;
-    }
+  .question input[type="text"] {
+      max-width: 50px;
+      padding: 5px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 30px;
+  }
 
 textarea {
-    width: 60%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
+  width: 60%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
 
 .btn-block {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
-    .btn-block button {
-        background-color: #4cff00;
-        text-align: left;
-        color: #000000;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 5px;
-    }
+  .btn-block button {
+      background-color: #4cff00;
+      text-align: left;
+      color: #000000;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+  }
 
 
-        .btn-block button[type="button"] {
-            background-color: #0026ff;
-            margin-left: 10px;
-        }
+      .btn-block button[type="button"] {
+          background-color: #0026ff;
+          margin-left: 10px;
+      }
+input[type='radio']:checked:after {
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      top: -2px;
+      left: -1px;
+      position: relative;
+      background-color: red;
+      content: '';
+      display: inline-block;
+      visibility: visible;
+      border: 2px solid white;
+  }
