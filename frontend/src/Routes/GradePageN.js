@@ -16,7 +16,7 @@ export default function GradePageN() {
             "title": "question 2",
             "description": "this is another description",
             "marks": [0, 1, 2, 3],
-            "comments": ["real reaaal reeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeaally long txt.", "good"]
+            "comments": ["real reaaal reeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeaally long txt. x", "good"]
         },
     ]
     const studentInfo = [
@@ -62,7 +62,7 @@ export default function GradePageN() {
                                 {/*<div>*/}
                                 {/*    <input type="radio" value="none" id="radio_1" name={value.title} />*/}
                                 {/*</div>*/}
-                                <input class="question-numberinput" type="text" name={value.title} placeholder={'Other'} />
+                                <input class="question-numberinput" type="text" name={value.title} value="Jon" />
                                 <br />
                                 <line></line>
                                 {value.comments.map(mark =>
@@ -72,7 +72,7 @@ export default function GradePageN() {
                                         <label class="radio-comments">{mark}</label>
                                     </div>
                                 )}
-                                <textarea type="text" name={value.title} placeholder={'Other'} />
+                                <textarea type="text" name={value.title} value="Jon" />
 
                             </div>)}
 
