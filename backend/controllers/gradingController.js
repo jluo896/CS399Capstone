@@ -5,7 +5,7 @@ const router = require("express").Router();
 
 router.get("/rubrics", (req, res) => {
     const sql = "select * from rubrics ORDER BY questionId";
-    var params = [];
+    const params = [];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
@@ -17,7 +17,7 @@ router.get("/rubrics", (req, res) => {
 
 router.get("/students", (req, res) => {
     const sql = "select * from students ORDER BY studentId";
-    var params = [];
+    const params = [];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
@@ -29,7 +29,31 @@ router.get("/students", (req, res) => {
 
 router.get("/student-grades", (req, res) => {
     const sql = "select * from student_grades";
-    var params = [];
+    const params = [];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+    })
+});
+
+router.get("/courses", (req, res) => {
+    const sql = "select * from courses";
+    const params = [];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+    })
+});
+
+router.get("/assignments", (req, res) => {
+    const sql = "select * from assignments";
+    const params = [];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
@@ -110,6 +134,30 @@ router.post("/uploadAssignment", (req, res) => {
     res.status(200).json(data);
 });
 
+router.post("/postGrades", (req, res) => {
+    const data = req.body;
+    const sql = "UPDATE student_grades SET mark = ?, comment = ? WHERE courseId = ?, assignmentId = ?, studentId = ?";
+    const params = [data[0].mark, data[0].comment, data[0].courseId, data[0].assignmentId, data[0].studentId];
+    db.run(sql, params, (err) => {
+        if (err){
+            res.status(400).json({"error": err.message});
+        }
+    });
+    res.status(200).json(data);
+})
+
+router.post("/updateGradeWithMark/:mark", (req, res) => { // search & replace
+    const data = req.body;
+    const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ?, assignmentId = ?, mark = ?";
+    const params = [data[0].mark, data[0].courseId, data[0].assignmentId, req.params.courseId];
+    db.run(sql, params, (err) => {
+        if (err){
+            res.status(400).json({"error": err.message});
+        }
+    });
+    res.status(200).json(data);
+})
+
 router.delete("/clearRubrics", (req, res) => {
     db.run("DELETE FROM rubrics", []);
     res.status(200).json({"message": "success"})
@@ -173,87 +221,123 @@ router.get("/student-grades/:courseId", (req, res) => {
 });
 
 router.get("/rubrics/:courseId/:assignmentId", (req, res) => {
-    /*const sql = "select * from rubrics WHERE courseId = ? ORDER BY questionId";
-    var params = [req.params.courseId];
+    const sql = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? ORDER BY questionId";
+    var params = [req.params.courseId, req.params.assignmentId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/students/:courseId/:assignmentId", (req, res) => {
-    /*const sql = "select * from students WHERE courseId = ? ORDER BY studentId";
-    var params = [req.params.courseId];
+    const sql = "select * from students WHERE courseId = ? AND assignmentId = ? ORDER BY studentId";
+    var params = [req.params.courseId, req.params.assignmentId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/student-grades/:courseId/:assignmentId", (req, res) => {
-    /*const sql = "select * from student_grades WHERE courseId = ?";
-    var params = [req.params.courseId];
+    const sql = "select * from student_grades WHERE courseId = ? AND assignmentId = ?";
+    var params = [req.params.courseId, req.params.assignmentId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/rubrics/:courseId/:assignmentId/:questionId", (req, res) => {
-    /*const sql = "select * from rubrics WHERE courseId = ? ORDER BY questionId";
-    var params = [req.params.courseId];
+    const sql = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? AND questionId = ? ORDER BY questionId";
+    var params = [req.params.courseId, req.params.assignmentId, req.params.questionId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/students/:courseId/:assignmentId/:studentId", (req, res) => {
-    /*const sql = "select * from students WHERE courseId = ? ORDER BY studentId";
-    var params = [req.params.courseId];
+    const sql = "select * from students WHERE courseId = ? AND assignmentId = ? AND questionId = ? ORDER BY studentId";
+    var params = [req.params.courseId, req.params.assignmentId, req.params.questionId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/student-grades/:courseId/:assignmentId/:studentId", (req, res) => {
-    /*const sql = "select * from student_grades WHERE courseId = ?";
-    var params = [req.params.courseId];
+    const sql = "select * from student_grades WHERE courseId = ? AND assignmentId = ? AND studentId = ?";
+    var params = [req.params.courseId, req.params.assignmentId, req.params.studentId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
 });
 
 router.get("/student-grades/:courseId/:assignmentId/:studentId/:questionId", (req, res) => {
-    /*const sql = "select * from student_grades WHERE courseId = ?";
-    var params = [req.params.courseId];
+    const sql = "select * from student_grades WHERE courseId = ? AND assignmentId = ? AND studentId = ? AND questionId = ?";
+    var params = [req.params.courseId, req.params.assignmentId, req.params.studentId, req.params.questionId];
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
-    })*/
+    })
+});
+
+router.get("/courses/:courseId", (req, res) => {
+    const sql = "select * from courses WHERE courseId = ?";
+    const params = [req.params.courseId];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+    })
+});
+
+router.get("/assignments/:courseId", (req, res) => {
+    const sql = "select * from assignments WHERE courseId = ?";
+    const params = [req.params.courseId];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+    })
+});
+
+router.get("/assignments/:courseId/:assignmentId", (req, res) => {
+    const sql = "select * from assignments WHERE courseId = ? AND assignmentId = ?";
+    const params = [req.params.courseId, req.params.assignmentId];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+    })
 });
 
 module.exports = router
