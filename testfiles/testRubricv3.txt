@@ -1,0 +1,85 @@
+[
+  {
+    "type": "radio-group",
+    "required": false,
+    "label": "Question 1",
+    "inline": false,
+    "name": "radio-group-1696124841333-0",
+    "access": false,
+    "other": false,
+    "values": [
+      {
+        "label": "0",
+        "value": "comment 1",
+        "selected": false
+      },
+      {
+        "label": "1",
+        "value": "comment 2",
+        "selected": false
+      },
+      {
+        "label": "2",
+        "value": "comment 3",
+        "selected": false
+      },
+      {
+        "label": "",
+        "value": "comment 4",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "type": "radio-group",
+    "required": false,
+    "label": "Question 2",
+    "inline": false,
+    "name": "radio-group-1696124843401-0",
+    "access": false,
+    "other": false,
+    "values": [
+      {
+        "label": "0",
+        "value": "comment 1",
+        "selected": false
+      },
+      {
+        "label": "2",
+        "value": "comment 2",
+        "selected": false
+      },
+      {
+        "label": "4",
+        "value": "",
+        "selected": false
+      },
+      {
+        "label": "7",
+        "value": "",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "type": "select",
+    "required": false,
+    "label": "Question 3",
+    "className": "form-control",
+    "name": "select-1696124904932-0",
+    "access": false,
+    "multiple": false,
+    "values": [
+      {
+        "label": "0",
+        "value": "No name",
+        "selected": true
+      },
+      {
+        "label": "1",
+        "value": "Name",
+        "selected": false
+      }
+    ]
+  }
+]
