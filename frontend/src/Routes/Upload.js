@@ -85,8 +85,8 @@ export default function Upload() {
                 </div>
             </div>
             <div class = "upload-page">
-                <div class = "Grade-Now"><button class = "upload-button" onClick={onFilesUpload}>Upload</button></div>
-                <div><Link to="/grading/menu" class = "Grade-Now">Grade Now</Link></div>
+                <div><button class = "upload-button" onClick={onFilesUpload}>Upload</button></div>
+                <div><Link to="/grading/menu" type = "button" class = "upload-button">Grade Now</Link></div>
             </div>
         </div>
     )

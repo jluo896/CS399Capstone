@@ -41,6 +41,9 @@ body {
     font-weight: bold;
     font-size: 24px;
     font-style: italic;
+    border: none;
+    text-decoration: none;
+    margin: 40px;
 }
 .home {
     width: 99%;
