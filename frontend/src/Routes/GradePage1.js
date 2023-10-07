@@ -5,7 +5,35 @@ import { useParams } from "react-router-dom";
 import Rubric from "./Rubric";
 
 export default function GradePage1() {
-    //to be replaced with GradeMenu information.
+    function parseComments(data) {
+        for (let i = 0; i < data.length; i++) {
+          const commentsArray = data[i].comments.split(",");
+          const cleanedComments = commentsArray.map(comment => comment.trim());
+          const marksArray = data[i].marks.split(",");
+          const cleanedMarks = marksArray.map(comment => comment.trim());
+          data[i].comments = cleanedComments;
+          data[i].marks = cleanedMarks;
+        }
+        
+        return data;
+      }
+    const imprtInfo = [{"courseId":1,"assignmentId":1,"questionId":0,"title":"Test Course,Test Assignment 1","marks":"10","comments":""}
+    ,	
+    {	"courseId":1,
+        "assignmentId":1,
+        "questionId":1,
+        "title":"Question 1",
+        "marks":"0,1,2",
+        "comments":"comment 1,comment 2,comment 3,comment 4"},
+    
+        {"courseId":1,
+        "assignmentId":1,
+        "questionId":2,
+        "title":"Question 2","marks":"0,2,4,7","comments":"comment 1,commen2"},{"courseId":1,"assignmentId":1,"questionId":3,"title":"Question 3","marks":"0,1","comments":"No name,Name"}
+    ];
+    const updatedImprtInfo = parseComments(imprtInfo);
+    const firstElement = updatedImprtInfo.shift();
+    
     const studentInfo = [
         {   
             "assignmentId": "520",
@@ -43,70 +71,6 @@ export default function GradePage1() {
     };
 
     // grading functions
-    const rubrics = [
-        {
-            "type": "radio-group",
-            "required": false,
-            "label": "Question 1",
-            "inline": false,
-            "name": "radio-group-1695435674642-0",
-            "access": false,
-            "other": false,
-            "values": [
-                {
-                    "label": "0",
-                    "value": "comment 1",
-                    "selected": false
-                },
-                {
-                    "label": "1",
-                    "value": "comment 2",
-                    "selected": false
-                },
-                {
-                    "label": "2",
-                    "value": "comment 3",
-                    "selected": false
-                },
-                {
-                    "label": "",
-                    "value": "comment 4",
-                    "selected": false
-                }
-            ]
-        },
-        {
-            "type": "select",
-            "required": false,
-            "label": "Question 2",
-            "className": "form-control",
-            "name": "select-1695435675690-0",
-            "access": false,
-            "multiple": false,
-            "values": [
-                {
-                    "label": "0",
-                    "value": "comment 1",
-                    "selected": true
-                },
-                {
-                    "label": "2",
-                    "value": "comment 2",
-                    "selected": false
-                },
-                {
-                    "label": "4",
-                    "value": "",
-                    "selected": false
-                },
-                {
-                    "label": "6",
-                    "value": "",
-                    "selected": false
-                }
-            ]
-        }
-    ];
 
     const showPopup = () => {
         alert("Everything is filled.");
@@ -115,12 +79,12 @@ export default function GradePage1() {
     return (
         //grading forms
         <div>
-            <Link to="/" class= "back">Back</Link>
-            <div class="blank-container">
+            <Link to="/" className="back">Back</Link>
+            <div className="blank-container">
                 {
                     <div class="grade-header">
                         <div class="grade-title">
-                            <p>Course Code: {studentInfo[0].courseCode} | Assignment: {studentInfo[0].assignmenttitle}</p>
+                            <p>{firstElement.title}</p>
                         </div>
                         <div class="grade-details">
                             <p>Student Name: {studentInfo[0].stdname}</p>
@@ -129,59 +93,59 @@ export default function GradePage1() {
                     </div>}
                 <div>
                     <ul>
-                        {rubrics.map(value =>
+                        {updatedImprtInfo.map( value=>
                             <div className="question" key={value.label}>
-                                <label>{value.label}</label>
+                                <label>{value.title}</label>
+                                <label>comment</label>
                                 <div>
-                                    {value.values.map(mark =>
-                                        mark.label !== "" ?
+                                    {value.marks.map(mark =>
+                                        mark !== "" ?
                                             <span key={mark.label}>
                                                 <input
                                                     className="question-radio"
                                                     type="radio"
-                                                    name={value.label}
-                                                    value={mark.label}
-                                                    checked={formData[value.label]?.mark === mark.label}
-                                                    onChange={() => handleInputChange(value.label, 'mark', mark.label)}
+                                                    name={value.title}
+                                                    value={mark}
+                                                    checked={formData[value.title]?.mark === mark}
+                                                    onChange={() => handleInputChange(value.title, 'mark', mark)}
                                                 />
-                                                <label>{mark.label}</label>
+                                                <label>{mark}</label>
                                             </span>
                                             : null
                                     )}
                                     <input
                                         className="question-numberinput"
                                         type="text"
-                                        name={value.label}
+                                        name={value.title}
                                         placeholder={'Other'}
-                                        value={formData[value.label]?.mark || ''}
-                                        onChange={(e) => handleInputChange(value.label, 'mark', e.target.value)}
+                                        value={formData[value.title]?.mark || ''}
+                                        onChange={(e) => handleInputChange(value.title, 'mark', e.target.value)}
                                     />
                                     <br />
-                                    <hr />
                                 </div>
-                                {value.values.map(comment =>
-                                    comment.value !== "" ?
-                                        <span key={comment.value}>
+                                {value.comments.map(comment =>
+                                    comment !== "" ?
+                                        <span key={comment}>
                                             <div className="question-comments">
                                                 <input
                                                     type="radio"
-                                                    name={value.label+' comment'}
+                                                    name={value.title+' comment'}
                                                     value={comment.name}
-                                                    checked={formData[value.label]?.comment === comment.value}
-                                                    onChange={() => handleInputChange(value.label, 'comment', comment.value)}
+                                                    checked={formData[value.title]?.comment === comment}
+                                                    onChange={() => handleInputChange(value.title, 'comment', comment)}
                                                 />
-                                                <label>{comment.value}</label>
+                                                <label>{comment}</label>
                                             </div>
                                         </span>
                                         : null
                                 )}
-                                <textarea
+                                { <textarea
                                     type="text"
-                                    name={value.label+' comment'}
+                                    name={value.title+' comment'}
                                     placeholder={'Other'}
-                                    value={formData[value.label]?.comment || ''}
-                                    onChange={(e) => handleInputChange(value.label, 'comment', e.target.value)}
-                                />
+                                    value={formData[value.title]?.comment || ''}
+                                    onChange={(e) => handleInputChange(value.title, 'comment', e.target.value)}
+                                /> }
                                 <button type="button" onClick={() => saveComment(value.label)} > Save Comment </button>
                             </div>
                         )}
