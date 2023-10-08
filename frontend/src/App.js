@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import './APP.css';
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, Link, useParams} from "react-router-dom"
 
 import Home from "./Routes/Home";
 import Rubric from "./Routes/Rubric";
@@ -24,9 +24,9 @@ function App() {
                 <Route path="/upload" element={<Upload/>} />
                 <Route path="/grading/menu" element={<GradeMenu/>} />
                 <Route path="/grading/page" element={<GradePage />} />
-                <Route path="/grading/page1" element={<GradePage1 />} />
+                <Route path="/grading/page1/:rbkId?/:stdId?" element={<GradePage1 />} />
                 <Route path="/grading/menuN" element={<GradeMenuN />} />
-                <Route path="/grading/pageN" element={<GradePage1 />} />
+                <Route path="/grading/pageN/:rbkId?/:stdId?" element={<GradePageN />} />
             </Routes>
         </Router>
     )

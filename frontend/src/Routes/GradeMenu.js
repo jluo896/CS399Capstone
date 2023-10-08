@@ -40,7 +40,7 @@ export default function GradeMenu() {
                 <div className="library">
                     {studentInfos.map(value => (
                         <div className="student-item" key={value.assignmentId}>
-                            <Link to={`/grading/page1/${value.assignmentId}`}>
+                            <Link to={`/grading/page1/1/${value.assignmentId}`}>
                                 {value.assignmenttitle}, {value.stdname}
                             </Link>
                         </div>

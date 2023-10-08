@@ -3,6 +3,7 @@ import './GradePage1.css';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Rubric from "./Rubric";
+import axios from "axios";
 
 export default function GradePage1() {
     function parseComments(data) {
@@ -72,6 +73,10 @@ export default function GradePage1() {
 
     // grading functions
 
+    //Params
+    const { stdId } = useParams();
+    const { rbkId } = useParams();
+
     const showPopup = () => {
         alert("Everything is filled.");
     };
@@ -84,11 +89,11 @@ export default function GradePage1() {
                 {
                     <div class="grade-header">
                         <div class="grade-title">
-                            <p>{firstElement.title}</p>
+                            <p>{firstElement.title} rubric {rbkId}</p>
                         </div>
                         <div class="grade-details">
                             <p>Student Name: {studentInfo[0].stdname}</p>
-                            <p>Student Id: {studentInfo[0].stdid}</p>
+                            <p>Student Id: {stdId}</p>
                         </div>
                     </div>}
                 <div>
