@@ -9,8 +9,6 @@ export default function Upload() {
     const API = "http://localhost:5000";
     const [rubricFile, setRubricFile] = useState(null);
     const [studentsFile, setStudentsFile] = useState(null);
-    const [rubric, setRubric] = useState(null);
-    const [students, setStudents] = useState(null);
 
     const onRubricFileChange = event => {
         setRubricFile( event.target.files[0] );
@@ -40,7 +38,7 @@ export default function Upload() {
         try {
             await new Promise(resolve => rubricReader.onload = () => resolve());
             rubricJson = Papa.parse(rubricReader.result, {header: true});
-            axios.post(API + "/grading/uploadRubric", rubricJson.data).then(res => console.log(res)).catch(err => console.log(err));
+            axios.post(API + "/grading/uploadRubric", rubricJson.data).catch(err => console.log(err));
         } catch(error) {
             alert("Not csv format!");
         }
@@ -48,7 +46,7 @@ export default function Upload() {
         try {
             await new Promise(resolve => studentsReader.onload = () => resolve());
             studentsJson = Papa.parse(studentsReader.result, {header: true});
-            axios.post(API + "/grading/uploadStudents", studentsJson.data).then(res => console.log(res)).catch(err => console.log(err));
+            axios.post(API + "/grading/uploadStudents", studentsJson.data).catch(err => console.log(err));
         } catch(error) {
             alert("Not csv format!");
         }
@@ -58,11 +56,11 @@ export default function Upload() {
             //console.log(studentsJson);
             const caInfo = rubricJson.data[0];
             const caNames = caInfo.title.split(',');
-            console.log(caInfo);
-            console.log(caNames);
-            axios.post(API + "/grading/uploadCourse", [{"courseId": caInfo.courseId, "courseName": caNames[0]}]).then(res => console.log(res)).catch(err => console.log(err));
-            axios.post(API + "/grading/uploadAssignment", [{"courseId": caInfo.courseId, "assignmentId": caInfo.courseId, "assignmentName": caNames[1]}]).then(res => console.log(res)).catch(err => console.log(err));
-            await axios.post(API + "/grading/uploadRubricForStudents", [rubricJson.data, studentsJson.data]).then(res => console.log(res)).catch(err => console.log(err));            
+            //console.log(caInfo);
+            //console.log(caNames);
+            axios.post(API + "/grading/uploadCourse", [{"courseId": caInfo.courseId, "courseName": caNames[0]}]).catch(err => console.log(err));
+            axios.post(API + "/grading/uploadAssignment", [{"courseId": caInfo.courseId, "assignmentId": caInfo.courseId, "assignmentName": caNames[1]}]).catch(err => console.log(err));
+            await axios.post(API + "/grading/uploadRubricForStudents", [rubricJson.data, studentsJson.data]).catch(err => console.log(err));
         } catch(err) {
             
         }

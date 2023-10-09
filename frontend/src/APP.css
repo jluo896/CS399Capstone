@@ -75,9 +75,20 @@ body {
 .move-to-c{
     margin-top: 16%;
 }
-.button-link{
+.button-link-home{
     color: white;
     font-size: 80px;
+    text-decoration:none;
+    font-weight: bold;
+    font-style: italic;
+}
+.button-link-home:hover{
+    color: #ff0000;
+}
+
+.button-link{
+    color: white;
+    font-size: 30px;
     text-decoration:none;
     font-weight: bold;
     font-style: italic;
@@ -85,6 +96,7 @@ body {
 .button-link:hover{
     color: #ff0000;
 }
+
 .back{
     font-size: 40px;
     color: white;

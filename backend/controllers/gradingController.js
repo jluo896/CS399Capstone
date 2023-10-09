@@ -149,9 +149,9 @@ router.get("/rubrics/:courseId/:assignmentId/:questionId", (req, res) => {
 });
 
 router.get("/students/:courseId/:assignmentId/:studentId", (req, res) => {
-    const sql = "select * from students WHERE courseId = ? AND assignmentId = ? AND questionId = ? ORDER BY studentId";
-    const params = [req.params.courseId, req.params.assignmentId, req.params.questionId];
-    db.all(sql, params, (err, rows) => {
+    const sql = "select * from students WHERE courseId = ? AND assignmentId = ? AND studentId = ?";
+    const params = [req.params.courseId, req.params.assignmentId, req.params.studentId];
+    db.get(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
@@ -187,7 +187,7 @@ router.get("/student-grades/:courseId/:assignmentId/:studentId/:questionId", (re
 router.get("/courses/:courseId", (req, res) => {
     const sql = "select * from courses WHERE courseId = ?";
     const params = [req.params.courseId];
-    db.all(sql, params, (err, rows) => {
+    db.get(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
@@ -211,7 +211,7 @@ router.get("/assignments/:courseId", (req, res) => {
 router.get("/assignments/:courseId/:assignmentId", (req, res) => {
     const sql = "select * from assignments WHERE courseId = ? AND assignmentId = ?";
     const params = [req.params.courseId, req.params.assignmentId];
-    db.all(sql, params, (err, rows) => {
+    db.get(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
           return;
@@ -261,10 +261,8 @@ router.post("/uploadRubricForStudents", async (req,res) => {
                     res.status(400).json({"error": err.message});
                 }
             });
-            
         }
     }
-    
 })
 
 router.post("/uploadCourse", (req, res) => {
@@ -293,24 +291,18 @@ router.post("/uploadAssignment", (req, res) => {
 
 router.post("/postGrades", (req, res) => {
     const data = req.body;
-    const sql = "UPDATE student_grades SET mark = ?, comment = ? WHERE courseId = ?, assignmentId = ?, studentId = ?";
-    const params = [data[0].mark, data[0].comment, data[0].courseId, data[0].assignmentId, data[0].studentId];
+    const sql = "UPDATE student_grades SET mark = ?, comment = ? WHERE courseId = ? AND assignmentId = ? AND studentId = ? AND questionId = ?";
+    const params = [data?.mark, data?.comment, data.courseId, data.assignmentId, data.studentId, data.questionId];
     db.run(sql, params, (err) => {
-        if (err){
-            res.status(400).json({"error": err.message});
-        }
     });
     res.status(200).json(data);
 })
 
-router.post("/updateGradeWithMark/:mark", (req, res) => { // search & replace
+router.post("/updateGradeWithMark/:courseId/:assignmentId", (req, res) => { // search & replace
     const data = req.body;
-    const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ?, assignmentId = ?, questionId = ?, mark = ?";
-    const params = [data[0].mark, data[0].courseId, data[0].assignmentId, data[0].questionId, req.params.mark];
+    const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND mark = ?";
+    const params = [data.newMark, req.params.courseId, req.params.assignmentId, data.questionId, data.oldMark];
     db.run(sql, params, (err) => {
-        if (err){
-            res.status(400).json({"error": err.message});
-        }
     });
     res.status(200).json(data);
 })
@@ -342,24 +334,51 @@ router.delete("/clearAssignments", (req, res) => {
 
 router.post("/addCommentToQuestion/:courseId/:assignmentId/:questionId", (req, res) => {
     const data = req.body;
-    const sqlGet = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? ORDER BY questionId";
+    const sqlGet = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
     const paramsGet = [req.params.courseId, req.params.assignmentId, req.params.questionId];
     db.get(sqlGet, paramsGet, (err, row) => {
         if (err) {
             res.status(400).json({"error":err.message});
-            return;
         }
         const comment = row.comments;
         const newComment = comment + "," + data.comment;
-        const sql = "UPDATE rubrics SET comments = ? WHERE courseId = ?, assignmentId = ?, questionId = ?";
+        const sql = "UPDATE rubrics SET comments = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
         const params = [newComment, req.params.courseId, req.params.assignmentId, req.params.questionId];
         db.run(sql, params, (err) => {
-            if (err){
-                res.status(400).json({"error": err.message});
-            }
+            //console.log(err)
         });
         res.status(200).json(data);
     })
 });
+
+router.get("/students/prevId/:courseId/:assignmentId/:studentId", (req, res) => {
+    const sql = "SELECT studentId from students WHERE courseId = ? AND assignmentId = ? ORDER BY studentId";
+    const params = [req.params.courseId, req.params.assignmentId];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+        }
+        const studentIds = rows.map(value => value.studentId);
+        const findValue = (arr, input) => arr[arr.indexOf(input) - 1]
+        const value = findValue(studentIds , Number(req.params.studentId));
+        const fValue = value === "" ? value : Number(req.params.studentId);
+        res.json(value);
+    })
+})
+
+router.get("/students/nextId/:courseId/:assignmentId/:studentId", (req, res) => {
+    const sql = "SELECT studentId from students WHERE courseId = ? AND assignmentId = ? ORDER BY studentId";
+    const params = [req.params.courseId, req.params.assignmentId];
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+        }
+        const studentIds = rows.map(value => value.studentId);
+        const findValue = (arr, input) => arr[arr.indexOf(input) + 1]
+        const value = findValue(studentIds , Number(req.params.studentId));
+        const fValue = value === undefined ? value : Number(req.params.studentId);
+        res.json(value);
+    })
+})
 
 module.exports = router
