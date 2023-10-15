@@ -143,7 +143,7 @@ export default function GradePageStudent() {
                                                 checked={formData[value.questionId]?.comment === comment}
                                                 onChange={() => handleInputChange(value.questionId, 'comment', comment, course.courseId, assignment.assignmentId, student.studentId, value.questionId)}
                                             />
-                                            <label>{comment}</label>
+                                            <label class="comment-content">{comment}</label>
                                         </div>
                                     </span>
                                 )}
@@ -158,17 +158,12 @@ export default function GradePageStudent() {
                             </div>
                         ))}
                     </ul>
-                    <div className="btn-block">
-                        <button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button>
-                    </div>
-                    <div className="btn-block">
-                        <button class="button-link" type="button" onClick={showPopup}>Check</button>
-                    </div>
-                    <div className="btn-block">
-                        <button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${prevId}`} class="button-link" type="botton">Prev</Link></button>
-                    </div>
-                    <div className="btn-block">
-                        <button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${nextId}`} class="button-link" type="botton">Next</Link></button>
+                    
+                    <div className="btn-block"><button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button></div>
+                    <div className="btn-block"><button class="button-link" type="button" onClick={showPopup}>Check</button></div>
+                    <div className="button-container">
+                        <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${prevId}`} class="button-link" type="button">Prev</Link></button></div>
+                        <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${nextId}`} class="button-link" type="button">Next</Link></button></div>
                     </div>
                 </div>
             </div>
