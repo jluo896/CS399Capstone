@@ -40,7 +40,8 @@ In the terminal make your the directory path is the WebApp Folder.
    ```sh
   npm start
   ```
-  and press enter key.  
+  and press enter key.
+
 The webapp should open at with you last used or default browser.
 
 
