@@ -8,6 +8,10 @@ export default function GradeMenuAssignment() {
     const [courses, setCourses] = useState([]);
     const [assignments, setAssigments] = useState([]);
 
+    const hello = () => {
+        alert("hello!")
+    }
+
     useEffect(() => {
         axios.get(API + "/grading/courses").then(res => setCourses(res.data)).catch(err => console.log(err));
         axios.get(API + "/grading/assignments").then(res => setAssigments(res.data)).catch(err => console.log(err));
@@ -20,11 +24,22 @@ export default function GradeMenuAssignment() {
                 <h1>Assignments</h1>
                 <div className="library">
                     {assignments.map(value => (
-                        <div className="student-item" key={`${value.courseId},${value.assignmentId}`}>
-                            <Link to={`/grading/menu/${value.courseId}/${value.assignmentId}`}>
+                        <Link to={`/grading/page/${value.courseId}/${value.assignmentId}/0`} class="asignment-item">
+                            <div className="student-item" key={`${value.courseId},${value.assignmentId}`}>
                                 [{value.courseId}] {courses.filter((c) => c.courseId === value.courseId)[0].courseName} - [{value.assignmentId}] {value.assignmentName}
-                            </Link>
-                        </div>
+                                
+                                <button onClick={hello} class="summary-button">
+                                <Link to={`/grading/menu`}>
+                                    Download
+                                    </Link>
+                                </button>
+                                <button class="summary-button">
+                                <Link to={`/grading/menu-summary/${value.courseId}/${value.assignmentId}`}>
+                                    Summary
+                                </Link>
+                                </button>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             </div>

@@ -13,6 +13,8 @@ import GradeMenuN from "./Routes/GradeMenuchecked";
 import GradeMenuAssignment from "./Routes/GradeMenuAssignment";
 import GradeMenuStudents from "./Routes/GradeMenuStudents";
 import GradePageStudent from "./Routes/GradePageStudent";
+import GradePageStudent2 from "./Routes/GradePageStudent2";
+import GradeMenuSummary from "./Routes/GradeMenuSummary";
 
 function App() {
     return (
@@ -33,6 +35,7 @@ function App() {
                 <Route path="/grading/menu" element={<GradeMenuAssignment/>} />
                 <Route path="/grading/menu/:courseId/:assignmentId" element={<GradeMenuStudents/>} />
                 <Route path="/grading/page/:courseId/:assignmentId/:studentId" element={<GradePageStudent/>} />
+                <Route path="/grading/menu-summary/:courseId/:assignmentId" element={<GradeMenuSummary/>} />
             </Routes>
         </Router>
     )
