@@ -28,7 +28,7 @@ In the terminal make your the directory path is the WebApp Folder.
   ```
   and press enter key.  
 * step 3.  
-  In the terminal, type in 
+  Open a new terminal the and type in 
   ```sh
   cd frontend
   ```
