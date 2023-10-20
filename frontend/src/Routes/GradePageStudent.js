@@ -13,11 +13,13 @@ export default function GradePageStudent() {
     const [students, setStudents] = useState([]);
     const [studentGrades, setStudentGrades] = useState([]);
     const [rubric, setRubric] = useState([]);
+
     const [prevId, setPrevId] = useState(null);
     const [nextId, setNextId] = useState(null);
 
     const [replaceMarkForm, setReplaceMarkForm] = useState([{"questionId": null, "oldMark": null, "newMark": null}]);
     const [replaceCommentForm, setReplaceCommentForm] = useState([{"questionId": null, "oldComment": null, "newComment": null}]);
+    const [checkedStudentIds, setCheckedStudentIds] = useState([]);
 
     let {courseId, assignmentId, studentId} = useParams();
 
@@ -43,6 +45,7 @@ export default function GradePageStudent() {
         for (let i=1;i<=Object.keys(formData).length;i++) {
             axios.post(API + "/grading/postGrades", formData[i]).catch(err => console.log(err));
         }
+        alert("All changes saved!")
     };
 
     const handleReplaceMarkChange = (index, e) => {
@@ -52,14 +55,25 @@ export default function GradePageStudent() {
 
     const handleReplaceMarkSubmit = () => {
         let data = replaceMarkForm[0];
-        console.log(data)
         if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
             axios.post(API + `/grading/updateGradeWithMark/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
+            alert("All Marks Updated!");
+        } else {
+            alert("Empty fields!");
+        }
+    }
+
+    const handleReplaceSelectedMarkSubmit = () => {
+        let data = replaceMarkForm[0];
+        if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
+            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithMarkAndId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
+            alert("All Marks Updated!");
+        } else {
+            alert("Empty fields!");
         }
     }
 
     const handleReplaceCommentChange = (index, e) => {
-        console.log(replaceCommentForm);
         let data = [...replaceCommentForm];
         data[index][e.target.name] = e.target.value;
     }
@@ -68,6 +82,28 @@ export default function GradePageStudent() {
         let data = replaceCommentForm[0];
         if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
             axios.post(API + `/grading/updateCommentsWithComment/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
+            alert("All Comments Updated!");
+        } else {
+            alert("Empty fields!");
+        }
+    }
+
+    const handleReplaceSelectedCommentSubmit = () => {
+        let data = replaceCommentForm[0];
+        console.log(data, checkedStudentIds)
+        if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
+            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithCommentAndId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
+            alert("All Comments Updated!");
+        } else {
+        alert("Empty fields!");
+        }
+    }
+
+    const handleStudentCheckbox = (e) => {
+        if (e.target.checked) {
+            setCheckedStudentIds([...checkedStudentIds, e.target.value]);
+        } else {
+            setCheckedStudentIds(checkedStudentIds.filter((id) => id !== e.target.value));
         }
     }
 
@@ -118,13 +154,15 @@ export default function GradePageStudent() {
                 <h1>Students</h1>
                 <div className="library">
                     {students.map(value => (
+                        <div>
                         <Link to={`/grading/page/${value.courseId}/${value.assignmentId}/${value.studentId}`} onClick={refreshPage}>
                             <div className="student-item" key={`${value.studentId}`}>
-                            
                                 [{value.studentId}] [{value.studentUpi}] {value.studentName}
-                            
+                                
                             </div>
                         </Link>
+                        <input value={value.studentId} type="checkbox" class="student-checkbox" onChange={handleStudentCheckbox} />
+                        </div>
                     ))}
                 </div>
             </div>
@@ -217,6 +255,7 @@ export default function GradePageStudent() {
                             <div key={index}>
                                 <label>Question Id</label>
                                 <select type="text" name={"questionId"} value={input.questionId} onChange={(e) => handleReplaceMarkChange(index, e)}>
+                                    <option value=""></option>
                                     {rubric.slice(1,rubric.length).map(value => (
                                         <option value={value.questionId}>{value.questionId}</option>
                                     ))}
@@ -226,7 +265,8 @@ export default function GradePageStudent() {
                                 <label>New Mark</label>
                                 <input type="text" name={"newMark"} value={input.newMark} onChange={(e) => handleReplaceMarkChange(index, e)}/><br/>
                                 <div className="btn-block">
-                                    <button class="button-link" type="button" onClick={handleReplaceMarkSubmit}>Submit</button>
+                                    <button class="button-link" type="button" onClick={handleReplaceMarkSubmit}>Update All</button>
+                                    <button class="button-link" type="button" onClick={handleReplaceSelectedMarkSubmit}>Update Selected</button>
                                 </div>
                             </div>
                         )
@@ -240,6 +280,7 @@ export default function GradePageStudent() {
                             <div key={index}>
                                 <label>Question Id</label>
                                 <select type="text" name={"questionId"} value={input.questionId} onChange={(e) => handleReplaceCommentChange(index, e)}>
+                                    <option value=""></option>
                                     {rubric.slice(1,rubric.length).map(value => (
                                         <option value={value.questionId}>{value.questionId}</option>
                                     ))}
@@ -250,6 +291,7 @@ export default function GradePageStudent() {
                                 <input type="text" name={"newComment"} value={input.newMark} onChange={(e) => handleReplaceCommentChange(index, e)}/><br/>
                                 <div className="btn-block">
                                     <button class="button-link" type="button" onClick={handleReplaceCommentSubmit}>Submit</button>
+                                    <button class="button-link" type="button" onClick={handleReplaceSelectedCommentSubmit}>Update Selected</button>
                                 </div>
                             </div>
                         )
