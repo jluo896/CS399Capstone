@@ -17,7 +17,6 @@ export default function GradeMenuSummary() {
         axios.get(API + `/grading/assignments/${courseId}/${assignmentId}`).then(res => setAssigment(res.data)).catch(err => console.log(err));
         axios.get(API + `/grading/students/${courseId}/${assignmentId}`).then(res => setStudents(res.data)).catch(err => console.log(err));
         axios.get(API + `/grading/student-grades/${courseId}/${assignmentId}`).then(res => setStudentGrades(res.data)).catch(err => console.log(err));
-        console.log(studentGrades);
     }, [])
 
     return (
