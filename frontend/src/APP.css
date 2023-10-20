@@ -155,14 +155,4 @@ body {
 }
 
 
-.summary-button {
-    background-color: #eee;
-    border: 1px solid black;
-    float:right;
-    padding: 4px;
-    margin: 0 4px;
-}
 
-.summary-button:hover {
-    background-color: red;
-}

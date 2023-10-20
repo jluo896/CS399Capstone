@@ -136,7 +136,15 @@ input[type='radio']:checked:after {
       border: 2px solid white;
   }
 
-  .question-comments {
+.student-checkbox {
+    background-color: #eee;
+    border: 1px solid black;
+    float:right;
+    padding: 4px;
+    margin: -40px 12px;
+}
+  
+.question-comments {
     max-width: 500px;
     overflow: hidden;
     white-space: nowrap;

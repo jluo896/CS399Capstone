@@ -2,14 +2,17 @@ import React, {useState, useEffect} from "react";
 import './GradeMenu.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 export default function GradeMenuAssignment() {
     const API = "http://localhost:5000";
     const [courses, setCourses] = useState([]);
     const [assignments, setAssigments] = useState([]);
 
-    const hello = () => {
-        alert("hello!")
+    function download(courseId, assignmentId) {
+        //alert("hello")
+        
     }
 
     useEffect(() => {
@@ -28,8 +31,14 @@ export default function GradeMenuAssignment() {
                             <div className="student-item" key={`${value.courseId},${value.assignmentId}`}>
                                 [{value.courseId}] {courses.filter((c) => c.courseId === value.courseId)[0].courseName} - [{value.assignmentId}] {value.assignmentName}
                                 
-                                <button onClick={hello} class="summary-button">
-                                <Link to={`/grading/menu`}>
+                                <button class="summary-button" onClick={() => {
+                                    axios.get(API + `/grading/student-grades/${value.courseId}/${value.assignmentId}`).then(res => {
+                                        console.log(res);
+                                        const file = new Blob([Papa.unparse(res.data)],{ type: "text/csv" });
+                                        saveAs(file, `[${value.courseId}][${value.assignmentId}]${value.assignmentName}.csv`);
+                                }).catch(err => console.log(err))
+                                }}>
+                                <Link to={`/grading/menu`} >
                                     Download
                                     </Link>
                                 </button>
