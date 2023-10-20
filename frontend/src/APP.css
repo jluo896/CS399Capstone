@@ -94,6 +94,7 @@ body {
     text-decoration:none;
     font-weight: bold;
     font-style: italic;
+    margin-bottom: 3px;
 }
 .button-link:hover{
     color: #ff0000;

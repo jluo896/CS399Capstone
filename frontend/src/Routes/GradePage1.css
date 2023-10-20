@@ -60,9 +60,6 @@
   }
 
 
-  .question label {
-      font-weight: bold;
-  }
 
 
   .question span {
@@ -76,6 +73,8 @@
   .question label {
       display: block;
       margin-right: 2px;
+      font-weight: bold;
+      max-width: 470px;
   }
 
 
