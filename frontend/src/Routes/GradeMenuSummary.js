@@ -22,7 +22,7 @@ export default function GradeMenuSummary() {
     return (
         <div class="blank-container2">
             <Link to={`/grading/menu`} class= "back2">Back</Link>
-            <table>
+            <table class="assignment-summary">
                 <tr>
                     <th>Student Id</th>
                     <th>Student Upi</th>
