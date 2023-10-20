@@ -45,7 +45,8 @@ export default function GradePageStudent() {
         for (let i=1;i<=Object.keys(formData).length;i++) {
             axios.post(API + "/grading/postGrades", formData[i]).catch(err => console.log(err));
         }
-        alert("All changes saved!")
+        alert("All changes saved!");
+        refreshPage();
     };
 
     const handleReplaceMarkChange = (index, e) => {
@@ -58,6 +59,7 @@ export default function GradePageStudent() {
         if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
             axios.post(API + `/grading/updateGradeWithMark/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
             alert("All Marks Updated!");
+            refreshPage();
         } else {
             alert("Empty fields!");
         }
@@ -68,6 +70,7 @@ export default function GradePageStudent() {
         if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
             checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithMarkAndId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
             alert("All Marks Updated!");
+            refreshPage();
         } else {
             alert("Empty fields!");
         }
@@ -83,6 +86,7 @@ export default function GradePageStudent() {
         if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
             axios.post(API + `/grading/updateCommentsWithComment/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
             alert("All Comments Updated!");
+            refreshPage();
         } else {
             alert("Empty fields!");
         }
@@ -94,6 +98,7 @@ export default function GradePageStudent() {
         if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
             checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithCommentAndId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
             alert("All Comments Updated!");
+            refreshPage();
         } else {
         alert("Empty fields!");
         }
@@ -147,7 +152,6 @@ export default function GradePageStudent() {
 
     return (
         <div>
-            {/*console.log(studentGrades)*/}
             <Link to={`/grading/menu`} class= "back">Back</Link>
             <div class="row">
             <div class="menubox2">
@@ -155,7 +159,7 @@ export default function GradePageStudent() {
                 <div className="library">
                     {students.map(value => (
                         <div>
-                        <Link to={`/grading/page/${value.courseId}/${value.assignmentId}/${value.studentId}`} onClick={refreshPage}>
+                        <Link reloadDocument to={`/grading/page/${value.courseId}/${value.assignmentId}/${value.studentId}`}>
                             <div className="student-item" key={`${value.studentId}`}>
                                 [{value.studentId}] [{value.studentUpi}] {value.studentName}
                                 
@@ -178,6 +182,7 @@ export default function GradePageStudent() {
                     <div class="grade-details">
                         [{student.studentId}] ({student.studentUpi}) {student.studentName}
                     </div>
+                    <div className="btn-block"><button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button></div>
                     <ul>
                         {rubric.slice(1,rubric.length).map(value => (
                              <div className="question" key={value.title}>
@@ -234,11 +239,11 @@ export default function GradePageStudent() {
                     </ul>
                     
                     <div className="btn-block"><button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button></div>
-                    <div className="btn-block"><button class="button-link" type="button" onClick={showPopup}>Check</button></div>
+                    {/*<div className="btn-block"><button class="button-link" type="button" onClick={showPopup}>Check</button></div>
                     <div className="button-container">
                         <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${prevId}`} class="button-link" type="button">Prev</Link></button></div>
                         <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${nextId}`} class="button-link" type="button">Next</Link></button></div>
-                    </div>
+                                </div>*/}
                 </div>
                 : <div>Click on a student to start!</div>}
             </div>
@@ -285,7 +290,7 @@ export default function GradePageStudent() {
                                 <label>New Comment</label>
                                 <input type="text" name={"newComment"} value={input.newMark} onChange={(e) => handleReplaceCommentChange(index, e)}/><br/>
                                 <div className="btn-block">
-                                    <button class="button-link" type="button" onClick={handleReplaceCommentSubmit}>Submit</button>
+                                    <button class="button-link" type="button" onClick={handleReplaceCommentSubmit}>Update All</button>
                                     <button class="button-link" type="button" onClick={handleReplaceSelectedCommentSubmit}>Update Selected</button>
                                 </div>
                             </div>
