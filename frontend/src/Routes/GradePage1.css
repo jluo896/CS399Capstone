@@ -1,30 +1,33 @@
 .blank-container {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 15px;
   background-color: #f8f8f8;
   max-width: 80%;
   padding-left: 30px;
   max-height:90%;
   position: center;
-  margin-left: 30px;
+  margin-left: 10px;
   border-radius: 15px;
+  min-width: 65%;
   
 }
 
 .blank-container2 {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 15px;
   background-color: #f8f8f8;
   max-width: 80%;
   padding-left: 30px;
   max-height:90%;
   position: center;
   flex: 80%;
+  min-width: 65%;
+  
 }
 
 .blank-container3 {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 15px;
   background-color: #f8f8f8;
   max-width: 80%;
   padding-left: 30px;
@@ -32,6 +35,7 @@
   position: sticky;
   top:0;
   flex: 20%;
+  min-width: 65%;
 }
 
 .grade-title {
