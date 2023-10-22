@@ -1,0 +1,4 @@
+courseId,assignmentId,questionId,title,marks,comments
+399,1,0,"CS399 Capstone,Project",8,
+399,1,1,Question 1,"0,1,2","comment 1,comment 2,comment 3"
+399,1,2,Question 2,"0,2,4,6","No answer,Answer"

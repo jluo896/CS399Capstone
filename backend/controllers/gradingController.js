@@ -378,6 +378,30 @@ router.post("/addCommentToQuestion/:courseId/:assignmentId/:questionId", (req, r
     })
 });
 
+router.post("/removeCommentFromQuestion/:courseId/:assignmentId/:questionId", (req, res) => {
+    const data = req.body;
+    const sqlGet = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
+    const paramsGet = [req.params.courseId, req.params.assignmentId, req.params.questionId];
+    db.get(sqlGet, paramsGet, (err, row) => {
+        if (err || data.comment === undefined) {
+            res.status(400).json({"error":err.message});
+        }
+        const comment = row.comments;
+        const removeComment = data.comment;
+        const position = comment.search(removeComment);
+        let newComment = comment.slice(0,position) + comment.slice(position+removeComment.length+1,comment.length);
+        if (position === -1) {
+            newComment = comment
+        }
+        const sql = "UPDATE rubrics SET comments = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
+        const params = [newComment, req.params.courseId, req.params.assignmentId, req.params.questionId];
+        db.run(sql, params, (err) => {
+            //console.log(err)
+        });
+        res.status(200).json(data);
+    })
+});
+
 router.get("/students/prevId/:courseId/:assignmentId/:studentId", (req, res) => {
     const sql = "SELECT studentId from students WHERE courseId = ? AND assignmentId = ? ORDER BY studentId";
     const params = [req.params.courseId, req.params.assignmentId];

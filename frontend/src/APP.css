@@ -19,9 +19,10 @@
 }
 
 body {
-    background-image: url("https://w.wallhaven.cc/full/dg/wallhaven-dgxk6o.png");
+    /*background-image: url("https://w.wallhaven.cc/full/dg/wallhaven-dgxk6o.png");*/
+    background-image: url("./Images/bg-1.png");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     font-family: Arial;
 }
 

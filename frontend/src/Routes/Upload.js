@@ -60,11 +60,11 @@ export default function Upload() {
             //console.log(caNames);
             axios.post(API + "/grading/uploadCourse", [{"courseId": caInfo.courseId, "courseName": caNames[0]}]).then(res => console.log(res)).catch(err => console.log(err));
             axios.post(API + "/grading/uploadAssignment", [{"courseId": caInfo.courseId, "assignmentId": caInfo.assignmentId, "assignmentName": caNames[1]}]).then(res => console.log(res)).catch(err => console.log(err));
+            alert("Rubric and Student List Uploaded!")
             await axios.post(API + "/grading/uploadRubricForStudents", [rubricJson.data, studentsJson.data]).then(res => console.log(res)).catch(err => console.log(err));
         } catch(err) {
             
         }
-
     };
     
     return (
