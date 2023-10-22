@@ -125,7 +125,7 @@ router.get("/students/:courseId/:assignmentId", (req, res) => {
 });
 
 router.get("/student-grades/:courseId/:assignmentId", (req, res) => {
-    const sql = "select * from student_grades WHERE courseId = ? AND assignmentId = ?";
+    const sql = "select * from student_grades WHERE courseId = ? AND assignmentId = ? ORDER BY studentId, questionId";
     const params = [req.params.courseId, req.params.assignmentId];
     db.all(sql, params, (err, rows) => {
         if (err) {
@@ -302,6 +302,33 @@ router.post("/updateGradeWithMark/:courseId/:assignmentId", (req, res) => { // s
     const data = req.body;
     const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND mark = ?";
     const params = [data.newMark, req.params.courseId, req.params.assignmentId, data.questionId, data.oldMark];
+    db.run(sql, params, (err) => {
+    });
+    res.status(200).json(data);
+})
+
+router.post("/updateGradeWithMarkAndId/:courseId/:assignmentId/:studentId", (req, res) => { // search & replace
+    const data = req.body;
+    const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND studentId = ? AND mark = ?";
+    const params = [data.newMark, req.params.courseId, req.params.assignmentId, data.questionId, req.params.studentId, data.oldMark];
+    db.run(sql, params, (err) => {
+    });
+    res.status(200).json(data);
+})
+
+router.post("/updateCommentsWithComment/:courseId/:assignmentId", (req, res) => { // search & replace
+    const data = req.body;
+    const sql = "UPDATE student_grades SET comment = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND comment = ?";
+    const params = [data.newComment, req.params.courseId, req.params.assignmentId, data.questionId, data.oldComment];
+    db.run(sql, params, (err) => {
+    });
+    res.status(200).json(data);
+})
+
+router.post("/updateCommentsWithCommentAndId/:courseId/:assignmentId/:studentId", (req, res) => { // search & replace
+    const data = req.body;
+    const sql = "UPDATE student_grades SET comment = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND studentId = ? AND comment = ?";
+    const params = [data.newComment, req.params.courseId, req.params.assignmentId, data.questionId, req.params.studentId, data.oldComment];
     db.run(sql, params, (err) => {
     });
     res.status(200).json(data);

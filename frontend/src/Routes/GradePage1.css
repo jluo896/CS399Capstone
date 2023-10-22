@@ -11,6 +11,29 @@
   
 }
 
+.blank-container2 {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+  max-width: 80%;
+  padding-left: 30px;
+  max-height:90%;
+  position: center;
+  flex: 80%;
+}
+
+.blank-container3 {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+  max-width: 80%;
+  padding-left: 30px;
+  max-height:20%;
+  position: sticky;
+  top:0;
+  flex: 20%;
+}
+
 .grade-title {
   font-size: 24px;
   font-weight: bold;
@@ -79,7 +102,7 @@ textarea {
 
 .btn-block {
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
   .btn-block button {
@@ -112,7 +135,15 @@ input[type='radio']:checked:after {
       border: 2px solid white;
   }
 
-  .question-comments {
+.student-checkbox {
+    background-color: #eee;
+    border: 1px solid black;
+    float:right;
+    padding: 4px;
+    margin: -40px 12px;
+}
+  
+.question-comments {
     max-width: 500px;
     overflow: hidden;
     white-space: nowrap;

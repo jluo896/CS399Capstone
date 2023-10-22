@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import './GradePage1.css';
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function GradePageStudent() {
+export default function GradePageStudent2() {
     const API = "http://localhost:5000";
 
     const [formData, setFormData] = useState({});
@@ -13,13 +12,10 @@ export default function GradePageStudent() {
     const [students, setStudents] = useState([]);
     const [studentGrades, setStudentGrades] = useState([]);
     const [rubric, setRubric] = useState([]);
-
     const [prevId, setPrevId] = useState(null);
     const [nextId, setNextId] = useState(null);
 
     const [replaceMarkForm, setReplaceMarkForm] = useState([{"questionId": null, "oldMark": null, "newMark": null}]);
-    const [replaceCommentForm, setReplaceCommentForm] = useState([{"questionId": null, "oldComment": null, "newComment": null}]);
-    const [checkedStudentIds, setCheckedStudentIds] = useState([]);
 
     let {courseId, assignmentId, studentId} = useParams();
 
@@ -45,8 +41,6 @@ export default function GradePageStudent() {
         for (let i=1;i<=Object.keys(formData).length;i++) {
             axios.post(API + "/grading/postGrades", formData[i]).catch(err => console.log(err));
         }
-        alert("All changes saved!");
-        refreshPage();
     };
 
     const handleReplaceMarkChange = (index, e) => {
@@ -58,57 +52,6 @@ export default function GradePageStudent() {
         let data = replaceMarkForm[0];
         if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
             axios.post(API + `/grading/updateGradeWithMark/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
-            alert("All Marks Updated!");
-            refreshPage();
-        } else {
-            alert("Empty fields!");
-        }
-    }
-
-    const handleReplaceSelectedMarkSubmit = () => {
-        let data = replaceMarkForm[0];
-        if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
-            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithMarkAndId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
-            alert("All Marks Updated!");
-            refreshPage();
-        } else {
-            alert("Empty fields!");
-        }
-    }
-
-    const handleReplaceCommentChange = (index, e) => {
-        let data = [...replaceCommentForm];
-        data[index][e.target.name] = e.target.value;
-    }
-
-    const handleReplaceCommentSubmit = () => {
-        let data = replaceCommentForm[0];
-        if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
-            axios.post(API + `/grading/updateCommentsWithComment/${courseId}/${assignmentId}`, data).catch(err => console.log(err));
-            alert("All Comments Updated!");
-            refreshPage();
-        } else {
-            alert("Empty fields!");
-        }
-    }
-
-    const handleReplaceSelectedCommentSubmit = () => {
-        let data = replaceCommentForm[0];
-        console.log(data, checkedStudentIds)
-        if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
-            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithCommentAndId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
-            alert("All Comments Updated!");
-            refreshPage();
-        } else {
-        alert("Empty fields!");
-        }
-    }
-
-    const handleStudentCheckbox = (e) => {
-        if (e.target.checked) {
-            setCheckedStudentIds([...checkedStudentIds, e.target.value]);
-        } else {
-            setCheckedStudentIds(checkedStudentIds.filter((id) => id !== e.target.value));
         }
     }
 
@@ -126,6 +69,7 @@ export default function GradePageStudent() {
                 }
             }))
         )
+        console.log(formData)
         
     }
 
@@ -148,41 +92,41 @@ export default function GradePageStudent() {
         axios.get(API + `/grading/students/prevId/${courseId}/${assignmentId}/${studentId}`).then(res => setPrevId(res.data)).catch(err => console.log(err));
         axios.get(API + `/grading/students/nextId/${courseId}/${assignmentId}/${studentId}`).then(res => setNextId(res.data)).catch(err => console.log(err));
         axios.get(API + `/grading/student-grades/${courseId}/${assignmentId}/${studentId}`).then(res => {setStudentGrades(res.data);loadStudentGrades(res.data);}).catch(err => console.log(err));
+        //console.log(prevId, nextId);
     }, [])
+
+    
 
     return (
         <div>
-            <Link to={`/grading/menu`} class= "back">Back</Link>
+            {/*console.log(studentGrades)*/}
+            <Link to={`/grading/menu/${course.courseId}/${assignment.assignmentId}`} class= "back">Back</Link>
             <div class="row">
             <div class="menubox2">
                 <h1>Students</h1>
                 <div className="library">
                     {students.map(value => (
-                        <div>
-                        <Link reloadDocument to={`/grading/page/${value.courseId}/${value.assignmentId}/${value.studentId}`}>
+                        <Link to={`/grading/page/${value.courseId}/${value.assignmentId}/${value.studentId}`} onClick={refreshPage}>
                             <div className="student-item" key={`${value.studentId}`}>
+                            
                                 [{value.studentId}] [{value.studentUpi}] {value.studentName}
-                                
+                            
                             </div>
                         </Link>
-                        <input value={value.studentId} type="checkbox" class="student-checkbox" onChange={handleStudentCheckbox} />
-                        </div>
                     ))}
                 </div>
             </div>
-            <div class="blank-container">
-                <div class="grade-header">
-                    <div class="grade-title">
-                        <p>[{course.courseId}] {course.courseName} | [{assignment.assignmentId}] {assignment.assignmentName}</p>
+            <div class="blank-container2">
+                
+                    <div class="grade-header">
+                        <div class="grade-title">
+                            <p>[{course.courseId}] {course.courseName} | [{assignment.assignmentId}] {assignment.assignmentName}</p>
+                        </div>
+                        <div class="grade-details">
+                            [{student.studentId}] ({student.studentUpi}) {student.studentName}
+                        </div>
                     </div>
-                    
-                </div>
-                { studentId !== "0" ?
                 <div>
-                    <div class="grade-details">
-                        [{student.studentId}] ({student.studentUpi}) {student.studentName}
-                    </div>
-                    <div className="btn-block"><button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button></div>
                     <ul>
                         {rubric.slice(1,rubric.length).map(value => (
                              <div className="question" key={value.title}>
@@ -222,7 +166,7 @@ export default function GradePageStudent() {
                                                 checked={formData[value.questionId]?.comment === comment}
                                                 onChange={() => handleInputChange(value.questionId, 'comment', comment, course.courseId, assignment.assignmentId, student.studentId, value.questionId)}
                                             />
-                                            <label class="comment-content">{comment}</label>
+                                            <label>{comment}</label>
                                         </div>
                                     </span>
                                 )}
@@ -237,15 +181,19 @@ export default function GradePageStudent() {
                             </div>
                         ))}
                     </ul>
-                    
-                    <div className="btn-block"><button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button></div>
-                    {/*<div className="btn-block"><button class="button-link" type="button" onClick={showPopup}>Check</button></div>
-                    <div className="button-container">
-                        <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${prevId}`} class="button-link" type="button">Prev</Link></button></div>
-                        <div className="btn-block"><button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${nextId}`} class="button-link" type="button">Next</Link></button></div>
-                                </div>*/}
+                    <div className="btn-block">
+                        <button class="button-link" type="button" onClick={handleCommitButtonClick}>Commit Change</button>
+                    </div>
+                    <div className="btn-block">
+                        <button class="button-link" type="button" onClick={showPopup}>Check</button>
+                    </div>
+                    <div className="btn-block">
+                        <button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${prevId}`} class="button-link" type="botton">Prev</Link></button>
+                    </div>
+                    <div className="btn-block">
+                        <button type="button"><Link reloadDocument to={`/grading/page/${course.courseId}/${assignment.assignmentId}/${nextId}`} class="button-link" type="botton">Next</Link></button>
+                    </div>
                 </div>
-                : <div>Click on a student to start!</div>}
             </div>
             <div class="menubox2">
                 <b>Replace marks</b>
@@ -254,49 +202,20 @@ export default function GradePageStudent() {
                         replaceMarkForm.map((input, index) => 
                             <div key={index}>
                                 <label>Question Id</label>
-                                <select type="text" name={"questionId"} value={input.questionId} onChange={(e) => handleReplaceMarkChange(index, e)}>
-                                    <option value=""></option>
-                                    {rubric.slice(1,rubric.length).map(value => (
-                                        <option value={value.questionId}>{value.questionId}</option>
-                                    ))}
-                                </select><br/>
+                                <input type="text" name={"questionId"} value={input.questionId} onChange={(e) => handleReplaceMarkChange(index, e)}/>
+                                <br/>
                                 <label>Old Mark</label>
-                                <input type="text" name={"oldMark"} value={input.oldMark} onChange={(e) => handleReplaceMarkChange(index, e)}/><br/>
+                                <input type="text" name={"oldMark"} value={input.oldMark} onChange={(e) => handleReplaceMarkChange(index, e)}/>
+                                <br/>
                                 <label>New Mark</label>
-                                <input type="text" name={"newMark"} value={input.newMark} onChange={(e) => handleReplaceMarkChange(index, e)}/><br/>
+                                <input type="text" name={"newMark"} value={input.newMark} onChange={(e) => handleReplaceMarkChange(index, e)}/>
                                 <div className="btn-block">
-                                    <button class="button-link" type="button" onClick={handleReplaceMarkSubmit}>Update All</button>
-                                    <button class="button-link" type="button" onClick={handleReplaceSelectedMarkSubmit}>Update Selected</button>
+                                    <button class="button-link" type="button" onClick={handleReplaceMarkSubmit}>Replace All Marks</button>
                                 </div>
                             </div>
                         )
                     }
-                </div>
-                <b>Replace comments</b>
-                <div id="replace-comments">
-                    {
-                        replaceCommentForm.map((input, index) => 
-                            
-                            <div key={index}>
-                                <label>Question Id</label>
-                                <select type="text" name={"questionId"} value={input.questionId} onChange={(e) => handleReplaceCommentChange(index, e)}>
-                                    <option value=""></option>
-                                    {rubric.slice(1,rubric.length).map(value => (
-                                        <option value={value.questionId}>{value.questionId}</option>
-                                    ))}
-                                </select><br/>
-                                <label>Old Comment</label>
-                                <input type="text" name={"oldComment"} value={input.oldMark} onChange={(e) => handleReplaceCommentChange(index, e)}/><br/>
-                                <label>New Comment</label>
-                                <input type="text" name={"newComment"} value={input.newMark} onChange={(e) => handleReplaceCommentChange(index, e)}/><br/>
-                                <div className="btn-block">
-                                    <button class="button-link" type="button" onClick={handleReplaceCommentSubmit}>Update All</button>
-                                    <button class="button-link" type="button" onClick={handleReplaceSelectedCommentSubmit}>Update Selected</button>
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
+                    </div>
             </div>
             </div>
         </div>
