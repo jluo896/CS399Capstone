@@ -36,9 +36,17 @@ export default function GradePageStudent() {
             }
         }));
     };
+
     const saveComment = (courseId, assignmentId, questionId) => {
         const comment = formData[questionId]?.comment;
         axios.post(API + `/grading/addCommentToQuestion/${courseId}/${assignmentId}/${questionId}`, {"comment":comment}).catch(err => console.log(err));
+        alert("comment saved!");
+    };
+
+    const removeComment = (courseId, assignmentId, questionId) => {
+        const comment = formData[questionId]?.comment;
+        axios.post(API + `/grading/removeCommentFromQuestion/${courseId}/${assignmentId}/${questionId}`, {"comment":comment}).catch(err => console.log(err));
+        alert("comment removed!")
     };
 
     const handleCommitButtonClick = () => {
@@ -234,6 +242,7 @@ export default function GradePageStudent() {
                                     onChange={(e) => handleInputChange(value.questionId, 'comment', e.target.value, course.courseId, assignment.assignmentId, student.studentId, value.questionId)}
                                 />
                                 <button type="button" onClick={() => saveComment(course.courseId, assignment.assignmentId, value.questionId)} > Save Comment </button>
+                                <button type="button" onClick={() => removeComment(course.courseId, assignment.assignmentId, value.questionId)} > Remove Comment </button>
                             </div>
                         ))}
                     </ul>

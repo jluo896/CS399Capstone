@@ -59,7 +59,7 @@ class Rubric extends Component {
     onAssignmentIdChange = (event) => {
         this.setState({
             selectedFile: this.state.selectedFile, 
-            courseId: event.target.value, 
+            courseId: this.state.courseId,  
             courseName: this.state.courseName,
             assignmentId: event.target.value,
             assignmentName: this.state.assignmentName
