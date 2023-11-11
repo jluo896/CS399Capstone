@@ -75,8 +75,9 @@ export default function GradePageStudent() {
 
     const handleReplaceSelectedMarkSubmit = () => {
         let data = replaceMarkForm[0];
-        if (!(data.questionId === null || data.oldMark === null || data.newMark === null || data.questionId === '' || data.oldMark === '' || data.newMark === '')) {
-            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithMarkAndId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
+        if (!(data.questionId === null || /*data.oldMark === null ||*/ data.newMark === null || data.questionId === '' || /*data.oldMark === '' ||*/ data.newMark === '')) {
+            //checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithMarkAndId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
+            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateGradeWithId/${courseId}/${assignmentId}/${id}`, data).then(res => console.log(res)).catch(err => console.log(err)));
             alert("All Marks Updated!");
             refreshPage();
         } else {
@@ -103,8 +104,9 @@ export default function GradePageStudent() {
     const handleReplaceSelectedCommentSubmit = () => {
         let data = replaceCommentForm[0];
         console.log(data, checkedStudentIds)
-        if (!(data.questionId === null || data.oldComment === null || data.newComment === null || data.questionId === '' || data.oldComment === '' || data.newComment === '')) {
-            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithCommentAndId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
+        if (!(data.questionId === null || /*data.oldComment === null ||*/ data.newComment === null || data.questionId === '' || /*data.oldComment === '' ||*/ data.newComment === '')) {
+            //checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithCommentAndId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
+            checkedStudentIds.forEach(id => axios.post(API + `/grading/updateCommentsWithId/${courseId}/${assignmentId}/${id}`, data).catch(err => console.log(err)));
             alert("All Comments Updated!");
             refreshPage();
         } else {
