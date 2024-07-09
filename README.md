@@ -79,6 +79,13 @@ Also, the tech stack used closely resembles the MERN stack, however, we used SQL
 
 We also had plans to deploy the application, however, we might not be able to due to time constraints. But we might be able to deploy before the due date of the project, if we are able to.
 
+## Showcase Build Changes
+
+Here are some changes/improvements made to the project build for the showcase after the original deadline of our project. These changes were made either because we weren't able to implement in time or realised afterwards.
+
+* **Modifying marks or comments for selected student** no longer requires a previous mark or comment, so now, the marks or comments would be set for all selected students no matter their previous mark or comment.
+* Fixed issue for **removing comment** where radio button for removed comment is still present after comment was removed
+
 ## Acknowledgements
 * **Asma Shakil**:  Course coordinator
 * **Anna Trofimova**: Lecturer in charge of our project

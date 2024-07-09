@@ -334,6 +334,26 @@ router.post("/updateCommentsWithCommentAndId/:courseId/:assignmentId/:studentId"
     res.status(200).json(data);
 })
 
+// Showcase Build Addition
+router.post("/updateGradeWithId/:courseId/:assignmentId/:studentId", (req, res) => {
+    const data = req.body;
+    const sql = "UPDATE student_grades SET mark = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND studentId = ?";
+    const params = [data.newMark, req.params.courseId, req.params.assignmentId, data.questionId, req.params.studentId];
+    db.run(sql, params, (err) => {
+    });
+    res.status(200).json(data);
+})
+
+// Showcase Build Addition
+router.post("/updateCommentsWithId/:courseId/:assignmentId/:studentId", (req, res) => {
+    const data = req.body;
+    const sql = "UPDATE student_grades SET comment = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ? AND studentId = ?";
+    const params = [data.newComment, req.params.courseId, req.params.assignmentId, data.questionId, req.params.studentId];
+    db.run(sql, params, (err) => {
+    });
+    res.status(200).json(data);
+})
+
 router.delete("/clearRubrics", (req, res) => {
     db.run("DELETE FROM rubrics", []);
     res.status(200).json({"message": "success"})
@@ -378,6 +398,7 @@ router.post("/addCommentToQuestion/:courseId/:assignmentId/:questionId", (req, r
     })
 });
 
+// showcase build changed
 router.post("/removeCommentFromQuestion/:courseId/:assignmentId/:questionId", (req, res) => {
     const data = req.body;
     const sqlGet = "SELECT * from rubrics WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
@@ -386,13 +407,11 @@ router.post("/removeCommentFromQuestion/:courseId/:assignmentId/:questionId", (r
         if (err || data.comment === undefined) {
             res.status(400).json({"error":err.message});
         }
-        const comment = row.comments;
+        const comment = row.comments.split(',');
         const removeComment = data.comment;
-        const position = comment.search(removeComment);
-        let newComment = comment.slice(0,position) + comment.slice(position+removeComment.length+1,comment.length);
-        if (position === -1) {
-            newComment = comment
-        }
+        const position = comment.findIndex(c => c === removeComment);
+        comment.splice(position,1);
+        const newComment = comment.join(',');
         const sql = "UPDATE rubrics SET comments = ? WHERE courseId = ? AND assignmentId = ? AND questionId = ?";
         const params = [newComment, req.params.courseId, req.params.assignmentId, req.params.questionId];
         db.run(sql, params, (err) => {
